@@ -1,0 +1,4 @@
+//types for fwtch
+export const FETCH_BOOKING = "FETCH_BOOKING";
+export const FETCH_BOOKING_SUCCESS = "FETCH_BOOKING_SUCCESS";
+export const FETCH_BOOKING_FAILURE = "FETCH_BOOKING_FAILURE";

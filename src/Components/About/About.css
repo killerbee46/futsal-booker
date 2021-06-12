@@ -1,0 +1,15 @@
+.about-container{
+    text-align: left;
+}
+.name{
+    font-size: 1.8em;
+    font-weight: 500;
+}
+.position{
+    font-size: 1.3em;
+    font-style: italic;
+}
+.message{
+    text-align: justify;
+    font-size: 1.3em;
+}

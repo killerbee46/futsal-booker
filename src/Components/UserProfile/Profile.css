@@ -1,0 +1,18 @@
+.profile{
+    max-height: 75vh;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.brief{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #FC766AFF;
+}
+.more{
+    padding: 20px;
+    background-color: #5B84B1FF;
+}
+

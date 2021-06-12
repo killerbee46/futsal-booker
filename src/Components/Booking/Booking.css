@@ -1,0 +1,48 @@
+.ant-row.booking-table{
+    padding:10px 60px 5px 60px;
+}
+.timecard{
+    border: 1px solid black;
+    width: 100%;
+    height: 20vh;
+    padding: 5px 20px 0px 20px;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.199);
+  text-align: center;
+}
+.time{
+    padding: 10px;
+    /* background-color: greenyellow; */
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.detail{
+    margin-top: 10px;
+}
+.index{
+    font-size: 1.3em;
+}
+.you-booked{
+    font-size: 1.2em;
+}
+.booked{
+    color: rgb(102, 167, 5);
+}
+.not-booked{
+    color: red;
+}
+.red{
+    padding: 10px;
+    background-color: red;
+    color: white;
+    margin-left: 10px;
+}
+.green{
+    padding: 10px;
+    background-color: greenyellow;
+    margin-left: 10px;
+}
+.neutral{
+    padding: 10px;
+    background-color: rgb(167, 213, 253);
+    margin-left: 10px;
+}

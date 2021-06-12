@@ -1,0 +1,8 @@
+.logo{
+    margin: 5px;
+    width: 100px;
+    height: 50px;
+}
+.logo:hover{
+    opacity: 80%;
+}

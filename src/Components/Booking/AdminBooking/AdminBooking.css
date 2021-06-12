@@ -1,0 +1,41 @@
+.ad-timecard{
+    border: 1px solid black;
+    width: 100%;
+    height: 20vh;
+  box-shadow: 2px 2px rgba(0, 0, 0, 0.199);
+  text-align: center;
+}
+.ad-time{
+    padding: 10px;
+    /* background-color: greenyellow; */
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.ad-index{
+    font-size: 1.3em;
+}
+.ad-you-booked{
+    font-size: 1.2em;
+}
+.ad-booked{
+    color: green;
+}
+.ad-not-booked{
+    color: red;
+}
+.ad-red{
+    padding: 10px;
+    background-color: red;
+    color: white;
+    margin-left: 10px;
+}
+.ad-green{
+    padding: 10px;
+    background-color: greenyellow;
+    margin-left: 10px;
+}
+.status{
+    font-size: 1.2em;
+    margin-top: 41px;
+}

@@ -1,0 +1,13 @@
+.footer-container{
+    position: relative;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 8%;
+    background-color: rgba(180, 163, 141, 0.664);
+}
+.footer{
+    padding: 10px;
+    font-size: 1.2em;
+    font-weight: 500;
+}
