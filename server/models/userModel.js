@@ -24,9 +24,13 @@ const userSchema = new mongoose.Schema(
       type: {},
       required: true,
     },
-    answer: {
-      type: String,
-      required: true,
+    teamId: {
+      type: Number,
+      required: false,
+    },
+    penalty: {
+      type: Number,
+      required: false,
     },
     role: {
       type: Number,

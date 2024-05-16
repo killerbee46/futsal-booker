@@ -2,9 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
+import apiRoutes from "./routes/apiRoutes.js";
 import authRoutes from "./routes/authRoute.js";
-import categoryRoutes from "./routes/categoryRoutes.js";
-import productRoutes from "./routes/productRoutes.js";
 import cors from "cors";
 
 //configure env
@@ -22,14 +21,17 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 //routes
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/category", categoryRoutes);
-app.use("/api/v1/product", productRoutes);
+
+// app.use("/api/v1/category", categoryRoutes);
+// app.use("/api/v1/product", productRoutes);
 
 //rest api
 app.get("/", (req, res) => {
-  res.send("<h1>Welcome to ecommerce app</h1>");
+  res.send(`<h3>Api server is running</h3> <a href="/api"><button>Go to Api</button></a>`)
 });
+
+app.use("/api", apiRoutes);
+app.use("/api/auth", authRoutes);
 
 //PORT
 const PORT = process.env.PORT || 8080;

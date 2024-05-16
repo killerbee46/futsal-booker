@@ -1,0 +1,18 @@
+.logo__container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  text-decoration: none;
+  width: fit-content;
+  .logo__name {
+    font-family: "Arvo", serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29.64px;
+    &.dark {
+      color: white;
+    }
+  }
+}

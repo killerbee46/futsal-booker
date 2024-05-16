@@ -1,0 +1,32 @@
+.menu{
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    .menuItems{
+        font-family: Lato;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 21.6px;
+        font-family: 'Lato', sans-serif;
+        text-decoration: none;
+        color: white;
+    }
+}
+.mobileMenu{
+    display: flex;
+    justify-content: space-between;
+    .menuItems{
+        font-family: Lato;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 21.6px;
+        font-family: 'Lato', sans-serif;
+        text-decoration: none;
+        color: white;
+        text-align: center;
+        p{
+            margin-top: 5px;
+            font-size: 16px;
+        }
+    }
+}

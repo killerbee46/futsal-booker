@@ -1,0 +1,13 @@
+.auth__modal{
+    &.ant-modal{
+        .ant-modal-content{
+            padding-top: 50px;
+            background: #141C33;
+           .ant-modal-body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+           }
+        }
+    }
+}

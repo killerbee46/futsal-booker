@@ -1,0 +1,10 @@
+.game__card{
+    &.ant-card{
+        margin: 20px auto;
+        border: 1px solid rgba(255, 255, 255, 0.282);
+        border-radius: 0;
+            .ant-card-body{
+                padding: 5px;
+            }
+        }
+    }

@@ -1,0 +1,29 @@
+.button{
+  &.ant-btn{
+    height: unset;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    line-height: 19.2px;
+    font-weight: 600;
+    &.primary{
+      background: #1186DC;
+      border: 1px solid #1186DC;
+      color: white;
+      &:hover{
+        color: rgba(255, 255, 255, 0.682);
+      }
+    }
+    &.secondary{
+      background: white;
+      border: 1px solid #1186DC;
+      color:#1186DC;
+    }
+    &.odd{
+      border-radius: 4px;
+      background: #283352;
+      padding: 5px 8px;
+      border: 1px solid transparent;
+    }
+  }
+}
