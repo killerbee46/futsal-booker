@@ -1,9 +1,8 @@
 import "./App.css";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MainRoutes from "./user-side/routes/MainRoutes";
 import { AuthContext } from "./contexts/AuthContext";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient()
 

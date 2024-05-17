@@ -3,13 +3,16 @@ import { Button, Flex, Form, Input, Typography } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import React from 'react'
 import { requestLogin, storeLogin } from '../../../api/AuthApi'
+import { useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
   const [form] = useForm()
+  const navigate = useNavigate()
   const {mutate,isPending:loading} = useMutation({
     mutationFn:requestLogin,
     onSuccess: (data, variables) => {
       storeLogin(data)
+      navigate('/')
     },
   })
   const onFinish = (values:any) => {

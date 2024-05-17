@@ -3,9 +3,17 @@ import "./UserDropdown.scss"
 import { DownOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Avatar, Dropdown, Space, Typography } from 'antd';
-import { logout, userData } from '../../utils/loginHandler';
+import { getUser, requestLogout } from '../../../api/AuthApi';
 
 const items: MenuProps['items'] = [
+  {
+    key: 'dashboard',
+    label: (
+      <a href="/dashboard">
+        Dashboard
+      </a>
+    ),
+  },
   {
     key: 'profile',
     label: (
@@ -17,25 +25,26 @@ const items: MenuProps['items'] = [
   {
     key: 'logout',
     label: (
-      <a onClick={logout}>
+      <a onClick={requestLogout}>
         Logout
       </a>
     )
   }
 ];
 
-const userName = userData?.email?.split("@")[0]
-
-const UserDropdown = () => (
+const UserDropdown = () => {
+  const user = getUser()
+  return (
   <Dropdown menu={{ items }}>
       <Typography.Link>
       <Space>
         <Avatar icon={<UserOutlined />} size={30} />
-        <div style={{textTransform:"capitalize"}}>{userName}</div>
+        <div style={{textTransform:"capitalize"}}>{user?.name}</div>
         <DownOutlined />
       </Space>
       </Typography.Link>
   </Dropdown>
-);
+)
+}
 
 export default UserDropdown;

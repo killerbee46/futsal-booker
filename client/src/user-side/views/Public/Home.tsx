@@ -1,6 +1,6 @@
 import React from 'react'
-import MainLayout from "../Layouts/MainLayout"
-import Container from '../Layouts/Container'
+import MainLayout from '../../Layouts/MainLayout'
+import Container from '../../Layouts/Container'
 
 const Home = () => {
   return (

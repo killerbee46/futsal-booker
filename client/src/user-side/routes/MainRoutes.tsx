@@ -4,9 +4,34 @@ import {
   Outlet,
   RouterProvider,
 } from "react-router-dom";
-import Home from '../views/Home'
 import Register from "../views/Auth/Register";
 import Login from "../views/Auth/Login";
+import AuthRedirect from "./AuthRedirect";
+import Futsals from "../views/Public/Futsals";
+import Home from "../views/Public/Home";
+import { getUser } from "../../api/AuthApi";
+import UserDashboard from "../views/DashBoard/User/UserDashboard";
+import DashboardLayout from "../Layouts/DashboardLayout";
+
+const user = getUser()
+
+const dashboardRoutes = () => {
+  if (user?.role === 0) {
+    return {
+      path:"dashboard",
+      element:<UserDashboard />
+    }
+  } else if (user?.role === 1) {
+    
+  } else if (user?.role === 3) {
+    return {
+      path:"dashboard",
+      element:<DashboardLayout/>
+    }
+  } else {
+    
+  }
+} 
 
 const router = createBrowserRouter([
   {
@@ -14,8 +39,12 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
+    path: "/futsals",
+    element: <Futsals />,
+  },
+  {
     path: "auth",
-    element: <Outlet />,
+    element: <AuthRedirect />,
     children:[
       {
         path: "register",
@@ -27,6 +56,7 @@ const router = createBrowserRouter([
       },
     ]
   },
+  {...dashboardRoutes()}
 ]);
 
 const MainRoutes = () => {

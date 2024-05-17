@@ -11,20 +11,20 @@ const menuItems = [
     path:'/'
   },
   {
-    title:"My Bets",
+    title:"Futsals",
     icon:<FileOutlined />,
-    path:'/my-bets'
+    path:'/futsals'
   },
-  {
-    title:"Bet Slip",
-    icon:<TagOutlined style={{transform:'scaleX(-1)'}} />,
-    path:'/bet'
-  },
-  {
-    title:"History",
-    icon:<ClockCircleOutlined />,
-    path:'/'
-  },
+  // {
+  //   title:"Shop",
+  //   icon:<TagOutlined style={{transform:'scaleX(-1)'}} />,
+  //   path:'/bet'
+  // },
+  // {
+  //   title:"History",
+  //   icon:<ClockCircleOutlined />,
+  //   path:'/'
+  // },
 ]
 
 // #1186DC signu button color

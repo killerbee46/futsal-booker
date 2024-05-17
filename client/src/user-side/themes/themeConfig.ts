@@ -1,6 +1,7 @@
+import { ThemeConfig } from "antd";
 import { colors } from "./colors";
 
-export const themeConfig = {
+export const themeConfig:ThemeConfig = {
     token:{
         
     },
@@ -8,7 +9,9 @@ export const themeConfig = {
         Table:{
         },
         Card:{
-            headerBg:colors.foreground,
+            headerBg:colors.primaryColor,
+            colorTextHeading:"white",
+            boxShadow:"rgba(0, 0, 0, 0.24) 0px 3px 8px"
         },
         Tabs:{
         },

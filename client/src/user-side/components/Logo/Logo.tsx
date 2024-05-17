@@ -1,16 +1,14 @@
 import { Image, Typography } from 'antd'
 import React from 'react'
-import logo from '/logo.png'
+import logo from '/futsal-online.png'
+import smallLogo from '/futsal-online-no-text.png'
 import './Logo.scss'
 import { Link } from 'react-router-dom'
 
-const Logo = ({withText, dark}:any) => {
+const Logo = ({withText, width}:any) => {
   return (
       <Link to={'/'} className='logo__container'>
-        <Image src={logo} preview={false} height={50} width={50} />
-        <Typography.Text hidden={!withText} className={`logo__name ${dark && "dark"}`}>
-            Circle Bet
-        </Typography.Text>
+        <Image src={withText ? logo : smallLogo} preview={false} height={ width ? "" : 50} width={width || 100} />
     </Link>
   )
 }

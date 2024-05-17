@@ -12,7 +12,7 @@ const MainLayout = (props: any) => {
           <Affix offsetTop={0}>
             <NavBar />
           </Affix>
-          <div style={{ minHeight: "89.45vh", background: "#161F2C" }}>
+          <div>
             {props.children}
           </div>
           <Footer />

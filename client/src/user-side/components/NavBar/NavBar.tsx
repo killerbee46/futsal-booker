@@ -9,9 +9,10 @@ import { BrowserView, MobileView } from 'react-device-detect'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import UserDropdown from '../UserDropdown/UserDropdown'
 import { userData } from '../../utils/loginHandler'
+import { getToken, getUser } from '../../../api/AuthApi'
 
 const NavBar = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const token = getToken()
   const navigate = useNavigate()
 
   const openModal = (type: string) => {
@@ -36,7 +37,7 @@ navigate(`/auth/${type}`)
             </Col>
             <Col xs={24} sm={24} md={10} lg={10} xl={10} xxl={10}>
               {
-                userData?.loggedIn ?
+                token ?
                   <UserDropdown />
                   :
                   <Space size={'middle'}>

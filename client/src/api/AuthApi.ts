@@ -18,8 +18,7 @@ export const requestRegister = (data: any) => {
 };
 
 export const storeLogin = (data:any) => {
-  // console.log(data)
-  // localStorage.setitem('user',JSON.stringify(data?.data?.user))
+  localStorage.setItem('user',JSON.stringify(data?.data?.user))
   localStorage.setItem("token",data?.data?.token);
   localStorage.setItem("loggedIn",'true');
 }
@@ -27,6 +26,10 @@ export const storeLogin = (data:any) => {
 export const getToken = () => {
   const token = localStorage.getItem('token') || ""
   return token
+}
+export const getUser = () => {
+  const token = localStorage.getItem('user') || ""
+  return JSON.parse(token)
 }
 // const temp = 
 export const requestLogout = () => {
