@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import {
   DashboardOutlined,
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
+  EnvironmentOutlined,
+  PlusOutlined,
+  UnorderedListOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu, Spin, theme } from 'antd';
 import Logo from '../components/Logo/Logo';
+import { useNavigate } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -31,19 +30,29 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem('Dashboard', 'dashboard', <DashboardOutlined />),
-  getItem('Option 1', '1', <PieChartOutlined />),
-  getItem('Option 2', '2', <DesktopOutlined />),
-  getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '3'),
-    getItem('Bill', '4'),
-    getItem('Alex', '5'),
-  ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-  getItem('Files', '9', <FileOutlined />),
+  getItem('Futsal', 'dashboard/futsal', <EnvironmentOutlined />,[
+    getItem('List', '', <UnorderedListOutlined />),
+    getItem('Add', 'add', <PlusOutlined />),
+  ]
+),
+  // getItem('Option 1', '1', <PieChartOutlined />),
+  // getItem('Option 2', '2', <DesktopOutlined />),
+  // getItem('User', 'sub1', <UserOutlined />, [
+  //   getItem('Tom', '3'),
+  //   getItem('Bill', '4'),
+  //   getItem('Alex', '5'),
+  // ]),
+  // getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+  // getItem('Files', '9', <FileOutlined />),
 ];
 
-const DashboardLayout: React.FC = () => {
+const DashboardLayout= (props: any) => {
   const [collapsed, setCollapsed] = useState(false);
+  const currentMenu = window.location.pathname.slice(1,window.location.pathname.length)
+  const navigate = useNavigate()
+  const onMenuClick = (e) => {
+    navigate(`/${(e.keyPath?.reverse()?.join('/'))}`)
+  }
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -51,10 +60,10 @@ const DashboardLayout: React.FC = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div className="demo-logo-vertical" style={{padding:20}}>
-        <Logo withText={!collapsed} width="100%" />
+        <div className="demo-logo-vertical" style={{ padding: 20 }}>
+          <Logo withText={!collapsed} width="100%" />
         </div>
-        <Menu theme="dark" defaultSelectedKeys={['dashboard']} mode="inline" items={items} />
+        <Menu activeKey={currentMenu} onClick={onMenuClick} theme="dark" defaultSelectedKeys={['dashboard']} mode="inline" items={items} />
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }} />
@@ -67,7 +76,12 @@ const DashboardLayout: React.FC = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            Bill is a cat.
+            {
+              props?.loading ?
+              //loading screen
+              <Spin /> :
+              props?.children
+            }
           </div>
         </Content>
       </Layout>

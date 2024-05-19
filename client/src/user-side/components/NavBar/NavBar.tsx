@@ -1,22 +1,22 @@
 import { Button, Col, Row, Space } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React, {  } from 'react'
 import Logo from '../Logo/Logo'
 import Menus from './Menus/Menus'
 import './NavBar.scss'
 import AuthModal from '../AuthModal/AuthModal'
 import AuthDrawer from '../AuthDrawer/AuthDrawer'
 import { BrowserView, MobileView } from 'react-device-detect'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import UserDropdown from '../UserDropdown/UserDropdown'
-import { userData } from '../../utils/loginHandler'
-import { getToken, getUser } from '../../../api/AuthApi'
+import { getToken } from '../../../api/AuthApi'
 
 const NavBar = () => {
   const token = getToken()
   const navigate = useNavigate()
+  const ref = window.location.pathname
 
   const openModal = (type: string) => {
-navigate(`/auth/${type}`)
+navigate(`/auth/${type}?ref=${ref}`)
     // searchParams.set('auth', type)
     // setSearchParams(searchParams)
   }

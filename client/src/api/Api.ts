@@ -104,7 +104,9 @@ export const AuthApi = axios.create({
     baseURL: `${baseUrl}/auth`,
 });
 
-const API = axios;
+const API = axios.create({
+    baseURL: `${baseUrl}/`,
+});
 
 // ({
 //   baseURL: `${baseUrl}`,

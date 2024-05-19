@@ -10,42 +10,54 @@ import AuthRedirect from "./AuthRedirect";
 import Futsals from "../views/Public/Futsals";
 import Home from "../views/Public/Home";
 import { getUser } from "../../api/AuthApi";
-import UserDashboard from "../views/DashBoard/User/UserDashboard";
+import FutsalList from "../views/DashBoard/Admin/Futsal/FutsalList"
+import DashBoardPage from "../views/DashBoard/DashBoardPage";
 import DashboardLayout from "../Layouts/DashboardLayout";
+import AddFutsal from "../views/DashBoard/Admin/Futsal/AddFutsal";
 
 const user = getUser()
 
 const dashboardRoutes = () => {
-  if (user?.role === 0) {
-    return {
-      path:"dashboard",
-      element:<UserDashboard />
-    }
-  } else if (user?.role === 1) {
-    
+  if (user?.role === 1) {
+    return [
+    ]
+  } else if (user?.role === 2) {
+return[]
   } else if (user?.role === 3) {
-    return {
-      path:"dashboard",
-      element:<DashboardLayout/>
-    }
+    return [
+      {
+        path: "dashboard/futsal",
+        element: <Outlet />,
+        children:[
+          {
+            path: "",
+            element: <FutsalList />
+          },
+          {
+            path: "add",
+            element: <AddFutsal />
+          },
+        ]
+      },
+      
+    ]
   } else {
-    
+[]
   }
 } 
-
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
   },
   {
-    path: "/futsals",
+    path: "futsals",
     element: <Futsals />,
   },
   {
     path: "auth",
     element: <AuthRedirect />,
-    children:[
+    children: [
       {
         path: "register",
         element: <Register />,
@@ -56,13 +68,16 @@ const router = createBrowserRouter([
       },
     ]
   },
-  {...dashboardRoutes()}
-]);
+  {
+    path: "dashboard",
+    element: <DashBoardPage />
+  },
+].concat(dashboardRoutes()||[]));
 
 const MainRoutes = () => {
-    return (
-        <RouterProvider router={router} />
-      );
+  return (
+    <RouterProvider router={router} />
+  );
 }
 
 export default MainRoutes

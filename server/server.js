@@ -4,6 +4,7 @@ import morgan from "morgan";
 import connectDB from "./config/db.js";
 import apiRoutes from "./routes/apiRoutes.js";
 import authRoutes from "./routes/authRoute.js";
+import futsalRoutes from "./routes/futsalRoutes.js";
 import cors from "cors";
 
 //configure env
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 
 app.use("/api", apiRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/futsal", futsalRoutes);
 
 //PORT
 const PORT = process.env.PORT || 8080;

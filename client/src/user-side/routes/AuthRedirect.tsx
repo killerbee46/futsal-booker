@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Outlet, redirect, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { getToken } from '../../api/AuthApi'
 
 const AuthRedirect = () => {

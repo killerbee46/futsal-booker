@@ -1,7 +1,7 @@
 import { Image, Typography } from 'antd'
 import React from 'react'
 import logo from '/futsal-online.png'
-import smallLogo from '/futsal-online-no-text.png'
+import smallLogo from '/logo.png'
 import './Logo.scss'
 import { Link } from 'react-router-dom'
 
