@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   DashboardOutlined,
+  EditOutlined,
   EnvironmentOutlined,
   PlusOutlined,
   UnorderedListOutlined,
@@ -33,6 +34,7 @@ const items: MenuItem[] = [
   getItem('Futsal', 'dashboard/futsal', <EnvironmentOutlined />,[
     getItem('List', '', <UnorderedListOutlined />),
     getItem('Add', 'add', <PlusOutlined />),
+    getItem('Edit', 'edit', <EditOutlined />),
   ]
 ),
   // getItem('Option 1', '1', <PieChartOutlined />),
@@ -56,6 +58,8 @@ const DashboardLayout= (props: any) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  document.title = `${props?.title || "Dashboard"} | Futsal Online`
 
   return (
     <Layout style={{ minHeight: '100vh' }}>

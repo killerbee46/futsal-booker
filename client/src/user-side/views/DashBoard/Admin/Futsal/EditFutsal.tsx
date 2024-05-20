@@ -2,12 +2,12 @@ import React from 'react'
 import DashboardLayout from '../../../../Layouts/DashboardLayout'
 import FutsalForm from '../../../../components/Forms/FutsalForm'
 
-const AddFutsal = () => {
+const EditFutsal = () => {
   return (
-    <DashboardLayout title={"Add Futsal"}>
-        <FutsalForm />
+    <DashboardLayout title={"Edit futsal"}>
+        <FutsalForm update />
     </DashboardLayout>
   )
 }
 
-export default AddFutsal
+export default EditFutsal

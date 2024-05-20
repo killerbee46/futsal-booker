@@ -28,8 +28,9 @@ export const getToken = () => {
   return token
 }
 export const getUser = () => {
-  const token = localStorage.getItem('user') || ""
-  return JSON.parse(token)
+  const temp = localStorage.getItem('user') || "{}"
+  const user = JSON.parse(temp)
+  return user
 }
 // const temp = 
 export const requestLogout = () => {

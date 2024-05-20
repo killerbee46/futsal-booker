@@ -12,8 +12,9 @@ import Home from "../views/Public/Home";
 import { getUser } from "../../api/AuthApi";
 import FutsalList from "../views/DashBoard/Admin/Futsal/FutsalList"
 import DashBoardPage from "../views/DashBoard/DashBoardPage";
-import DashboardLayout from "../Layouts/DashboardLayout";
 import AddFutsal from "../views/DashBoard/Admin/Futsal/AddFutsal";
+import FutsalDetail from "../views/DashBoard/Admin/Futsal/FutsalDetail";
+import EditFutsal from "../views/DashBoard/Admin/Futsal/EditFutsal";
 
 const user = getUser()
 
@@ -36,6 +37,20 @@ return[]
           {
             path: "add",
             element: <AddFutsal />
+          },
+          {
+            path: ":id",
+            element: <Outlet />,
+            children:[
+              {
+                path: "",
+                element: <FutsalDetail />
+              },
+              {
+                path: "edit",
+                element: <EditFutsal />
+              },
+            ]
           },
         ]
       },

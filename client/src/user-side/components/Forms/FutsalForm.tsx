@@ -1,20 +1,34 @@
-import React from 'react'
-import {Button, Col, Flex, Form, Input, Radio, Row, Typography} from 'antd' 
+import React, { useEffect } from 'react'
+import {Button, Col, Flex, Form, Input, Radio, Row, Typography, message} from 'antd' 
 import { useForm } from 'antd/es/form/Form'
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { requestRegister } from '../../../api/AuthApi'
-import { createFutsal } from '../../../api/FutsalApi'
+import { createFutsal, getFutsal, updateFutsal } from '../../../api/FutsalApi'
+import { useParams, useNavigate } from 'react-router-dom'
 
-const FutsalForm = () => {
+const FutsalForm = ({update}:any) => {
   const [form] = useForm()
+  const {id} = useParams()
+  const navigate = useNavigate()
+  const {data } = useQuery({
+      queryKey:['futsal',id], queryFn:getFutsal
+  })
 
   const {mutate:submit, isPending:loading, error} = useMutation({
-    mutationFn:createFutsal
+    mutationFn:update?updateFutsal:createFutsal
   })
 
   const onFinish = (values:any) => {
-    submit(values)
+    if (update) {
+      submit({...values,id:data?.data?.futsal?._id})
+    } else {
+      submit(values)
+    }
   }
+
+  useEffect(()=> {
+form.setFieldsValue(data?.data?.futsal)
+  },[data])
   return (
     <Form form={form} onFinish={onFinish} layout='vertical'>
       <Row gutter={30}>
@@ -58,7 +72,7 @@ const FutsalForm = () => {
       </Form.Item> */}
       <Form.Item>
         <Flex justify='flex-end'>
-        <Button type='primary' htmlType='submit'>Create</Button>
+        <Button type='primary' htmlType='submit'>{update ? "Update" : "Create"}</Button>
         {/* <Typography.Link href='/auth/login'>Already Registered?</Typography.Link> */}
         </Flex>
       </Form.Item>

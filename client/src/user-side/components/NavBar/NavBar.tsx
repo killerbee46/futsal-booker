@@ -37,7 +37,7 @@ navigate(`/auth/${type}?ref=${ref}`)
             </Col>
             <Col xs={24} sm={24} md={10} lg={10} xl={10} xxl={10}>
               {
-                token ?
+                token && token !=="" ?
                   <UserDropdown />
                   :
                   <Space size={'middle'}>
