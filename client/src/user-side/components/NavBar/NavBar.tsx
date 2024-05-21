@@ -41,10 +41,10 @@ navigate(`/auth/${type}?ref=${ref}`)
                   <UserDropdown />
                   :
                   <Space size={'middle'}>
-                    <Button onClick={() => openModal('login')} className='button primary' style={{ background: '#2BACEE' }}>
+                    <Button onClick={() => openModal('login')} className='button primary large' style={{ background: '#2BACEE' }}>
                       Login
                     </Button>
-                    <Button className='button primary' onClick={() => openModal('register')}>
+                    <Button className='button primary large' onClick={() => openModal('register')}>
                       Sign Up
                     </Button>
                   </Space>

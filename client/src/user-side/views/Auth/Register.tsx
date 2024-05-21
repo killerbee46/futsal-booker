@@ -1,11 +1,11 @@
 import React from 'react'
 import AuthLayout from '../../Layouts/AuthLayout'
-import RegisterForm from '../../components/Forms/RegisterForm'
+import UserForm from '../../components/Forms/UserForm'
 
 const Register = () => {
   return (
     <AuthLayout type={"Register"}>
-        <RegisterForm />
+        <UserForm registerForm />
     </AuthLayout>
   )
 }

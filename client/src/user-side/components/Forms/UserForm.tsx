@@ -15,7 +15,7 @@ const UserForm = ({registerForm, update}:any) => {
   })
 
   const {data } = useQuery({
-    queryKey:['futsal',id], queryFn:getUser
+    queryKey:['futsal',id], queryFn:getUser, enabled:!registerForm
 })
 
   const onFinish = (values:any) => {
@@ -60,8 +60,8 @@ const UserForm = ({registerForm, update}:any) => {
       }
       <Form.Item label="Role" name={'role'}>
         <Radio.Group>
-          <Radio value={"0"}>Player</Radio>
-          <Radio value={"1"}>Futsal Owner</Radio>
+          <Radio value={"1"}>Player</Radio>
+          <Radio value={"2"}>Futsal Owner</Radio>
           {
             !registerForm &&
             <Radio value={"3"}>Super Admin</Radio>
