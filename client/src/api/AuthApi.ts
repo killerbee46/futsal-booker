@@ -27,7 +27,7 @@ export const getToken = () => {
   const token = localStorage.getItem('token') || ""
   return token
 }
-export const getUser = () => {
+export const localUser = () => {
   const temp = localStorage.getItem('user') || "{}"
   const user = JSON.parse(temp)
   return user

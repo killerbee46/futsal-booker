@@ -3,7 +3,7 @@ import "./UserDropdown.scss"
 import { DownOutlined, SmileOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Avatar, Dropdown, Space, Typography } from 'antd';
-import { getUser, requestLogout } from '../../../api/AuthApi';
+import { localUser, requestLogout } from '../../../api/AuthApi';
 
 const items: MenuProps['items'] = [
   {
@@ -33,7 +33,7 @@ const items: MenuProps['items'] = [
 ];
 
 const UserDropdown = () => {
-  const user = getUser()
+  const user = localUser()
   return (
   <Dropdown menu={{ items }}>
       <Typography.Link>

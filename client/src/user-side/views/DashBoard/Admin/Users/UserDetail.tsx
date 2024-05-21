@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getFutsal } from '../../../../../api/FutsalApi'
 import { EditOutlined } from '@ant-design/icons'
 
-const FutsalDetail = () => {
+const UserDetail = () => {
     const {id} = useParams()
     const navigate = useNavigate()
     const {data } = useQuery({
@@ -24,4 +24,4 @@ const FutsalDetail = () => {
   )
 }
 
-export default FutsalDetail
+export default UserDetail

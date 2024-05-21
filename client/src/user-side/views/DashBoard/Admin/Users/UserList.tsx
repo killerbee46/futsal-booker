@@ -6,11 +6,12 @@ import { Table, Typography, message } from 'antd'
 import { SettingOutlined } from '@ant-design/icons'
 import TableAction from '../../../../components/TableAction/TableAction'
 import AdminModuleLayout from '../../../../Layouts/AdminModuleLayout'
+import { deleteUser, getUsers } from '../../../../../api/UserApis'
 
-const FutsalList = () => {
-  const {data, refetch} = useQuery({queryKey:['futsals'],queryFn:getFutsals})
-  const {mutate:futsalDelete, isSuccess:deleted} = useMutation({
-    mutationFn:deleteFutsal,
+const UserList = () => {
+  const {data, refetch} = useQuery({queryKey:['futsals'],queryFn:getUsers})
+  const {mutate:userDelete, isSuccess:deleted} = useMutation({
+    mutationFn:deleteUser,
     onSuccess:(res:any)=>{
       if(res.data.success){
         refetch()
@@ -51,19 +52,19 @@ const FutsalList = () => {
       key:'_id',
       render:(id:any)=><TableAction
        id={id}
-       deleteFunction={futsalDelete}
+       deleteFunction={userDelete}
        deleted={deleted}
        module="futsal"
        />
     },
   ]
   return (
-    <DashboardLayout title={"Futsals"}>
-      <AdminModuleLayout module={'futsal'}>
+    <DashboardLayout title={"Users"}>
+      <AdminModuleLayout module={'user'}>
       <Table dataSource={futsals} columns={columns} pagination={{hideOnSinglePage:true}} />
       </AdminModuleLayout>
     </DashboardLayout>
   )
 }
 
-export default FutsalList
+export default UserList

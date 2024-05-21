@@ -9,14 +9,18 @@ import Login from "../views/Auth/Login";
 import AuthRedirect from "./AuthRedirect";
 import Futsals from "../views/Public/Futsals";
 import Home from "../views/Public/Home";
-import { getUser } from "../../api/AuthApi";
+import { localUser } from "../../api/AuthApi";
 import FutsalList from "../views/DashBoard/Admin/Futsal/FutsalList"
 import DashBoardPage from "../views/DashBoard/DashBoardPage";
 import AddFutsal from "../views/DashBoard/Admin/Futsal/AddFutsal";
 import FutsalDetail from "../views/DashBoard/Admin/Futsal/FutsalDetail";
 import EditFutsal from "../views/DashBoard/Admin/Futsal/EditFutsal";
+import UserList from "../views/DashBoard/Admin/Users/UserList";
+import AddUser from "../views/DashBoard/Admin/Users/AddUser";
+import UserDetail from "../views/DashBoard/Admin/Users/UserDetail";
+import EditUser from "../views/DashBoard/Admin/Users/EditUser";
 
-const user = getUser()
+const user = localUser()
 
 const dashboardRoutes = () => {
   if (user?.role === 1) {
@@ -27,7 +31,7 @@ return[]
   } else if (user?.role === 3) {
     return [
       {
-        path: "dashboard/futsal",
+        path: "dashboard/futsals",
         element: <Outlet />,
         children:[
           {
@@ -54,7 +58,34 @@ return[]
           },
         ]
       },
-      
+      {
+        path: "dashboard/users",
+        element: <Outlet />,
+        children:[
+          {
+            path: "",
+            element: <UserList />
+          },
+          {
+            path: "add",
+            element: <AddUser />
+          },
+          {
+            path: ":id",
+            element: <Outlet />,
+            children:[
+              {
+                path: "",
+                element: <UserDetail />
+              },
+              {
+                path: "edit",
+                element: <EditUser />
+              },
+            ]
+          },
+        ]
+      },
     ]
   } else {
 []

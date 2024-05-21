@@ -29,3 +29,11 @@ export const updateFutsal = (data: any) => {
     url: `/futsal/update/${data?.id}`,
   });
 };
+
+export const deleteFutsal = (data: any) => {
+  return API({
+    method: "POST",
+    data: data,
+    url: `/futsal/delete/${data}`,
+  });
+};

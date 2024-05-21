@@ -1,7 +1,7 @@
 .button{
   &.ant-btn{
     height: unset;
-    padding: 10px 25px;
+    padding: 5px 8px;
     border-radius: 8px;
     font-size: 16px;
     line-height: 19.2px;
@@ -9,6 +9,7 @@
     &.primary{
       background: #1186DC;
       border: 1px solid #1186DC;
+      padding: 5px 8px;
       color: white;
       &:hover{
         color: rgba(255, 255, 255, 0.682);
@@ -17,13 +18,25 @@
     &.secondary{
       background: white;
       border: 1px solid #1186DC;
+      padding: 5px 8px;
       color:#1186DC;
     }
     &.odd{
-      border-radius: 4px;
       background: #283352;
       padding: 5px 8px;
       border: 1px solid transparent;
+    }
+    &.danger{
+      background: crimson;
+      color: white;
+      padding: 5px 8px;
+      border: 1px solid transparent;
+      &:hover{
+        color: rgba(255, 255, 255, 0.682);
+      }
+    }
+    &.large{
+      padding: 10px 25px;
     }
   }
 }

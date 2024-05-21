@@ -131,3 +131,20 @@ export const createFutsal = async (req, res) => {
       });
     }
   };
+
+  export const deleteFutsal = async (req, res) => {
+    try {
+      await Futsal.findByIdAndDelete(req.params.id);
+      res.status(200).send({
+        success: true,
+        message: "Product Deleted successfully",
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Error while deleting product",
+        error,
+      });
+    }
+  };
