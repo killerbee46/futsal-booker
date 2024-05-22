@@ -7,22 +7,22 @@ import { useParams } from 'react-router-dom'
 import { getUser } from '../../../api/UserApis'
 import { createUser, updateUser } from '../../../../../server/controllers/userController'
 
-const UserForm = ({update}:any) => {
+const RegisterForm = ({registerForm, update}:any) => {
   const [form] = useForm()
   const {id} = useParams()
 
-  console.log(id,"user id")
-
   const {mutate:register, isPending:loading, error} = useMutation({
-    mutationFn:update ? updateUser : createUser
+    mutationFn:registerForm ? requestRegister : update ? updateUser : createUser
   })
 
   const {data } = useQuery({
-    queryKey:['futsal',id], queryFn:getUser
+    queryKey:['futsal',id], queryFn:getUser, enabled:!registerForm
 })
 
   const onFinish = (values:any) => {
     delete values['confirm-password']
+    registerForm ?
+    register(values) :
     update ?
     register(values) :
     register({...values,password:"password"})
@@ -36,6 +36,7 @@ const UserForm = ({update}:any) => {
   return (
     <>
     {
+      !registerForm && 
       <Typography.Title level={4}>
         {
           update ?
@@ -45,44 +46,42 @@ const UserForm = ({update}:any) => {
       </Typography.Title>
     }
     <Form form={form} onFinish={onFinish} layout='vertical'>
-      <Row gutter={30}>
-        <Col span={12}>
         <Form.Item label="Full Name" name={'name'}>
         <Input />
       </Form.Item>
-        </Col>
-        <Col span={12}>
         <Form.Item label="Email" name={'email'}>
         <Input />
       </Form.Item>
-        </Col>
-        <Col span={12}>
         <Form.Item label="Phone" name={'phone'}>
         <Input />
       </Form.Item>
-        </Col>
-        <Col span={12}>
         <Form.Item label="Address" name={'address'}>
         <Input />
       </Form.Item>
-        </Col>
-      </Row>
+        <Form.Item label="Password" name={'password'}>
+        <Input />
+      </Form.Item>
+      <Form.Item label="Confirm Password" name={'confirm-password'}>
+        <Input />
+      </Form.Item>
       <Form.Item label="Role" name={'role'}>
         <Radio.Group>
           <Radio value={"1"}>Player</Radio>
           <Radio value={"2"}>Futsal Owner</Radio>
-            <Radio value={"3"}>Super Admin</Radio>
         </Radio.Group>
       </Form.Item>
       <Form.Item>
-        <Flex justify='flex-end'>
+        <Flex justify='space-between'>
         <Button type='primary' htmlType='submit'>
           {
+            registerForm ?
+            "Register":
             update ?
             "Update":
             "Create"
           }
         </Button>
+        <Typography.Link hidden={!registerForm} href='/auth/login'>Already Registered?</Typography.Link>
         </Flex>
       </Form.Item>
     </Form>
@@ -90,4 +89,4 @@ const UserForm = ({update}:any) => {
   )
 }
 
-export default UserForm
+export default RegisterForm

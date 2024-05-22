@@ -20,7 +20,7 @@ const UserList = () => {
     }
   })
 
-  const futsals = data?.data?.futsals
+  const users = data?.data?.users
   const columns = [
     {
       title:"SN",
@@ -32,13 +32,18 @@ const UserList = () => {
       title:"Name",
       dataIndex:'name',
       key:'name',
-      render:(name,row,i)=><Typography.Link href={`${row?._id}`}>{name}</Typography.Link>
+      render:(name,row,i)=><Typography.Link href={`/dashboard/users/${row?._id}`}>{name}</Typography.Link>
     },
     {
-      title:"Location",
-      dataIndex:'location',
-      key:'location',
-      // render:(_,__,i)=>i+1
+      title:"Address",
+      dataIndex:'address',
+      key:'address'
+    },
+    {
+      title:"Email",
+      dataIndex:'email',
+      key:'email',
+      render:(email)=><Typography.Link href={`mailto:${email}`}>{email}</Typography.Link>
     },
     {
       title:"Phone",
@@ -54,14 +59,14 @@ const UserList = () => {
        id={id}
        deleteFunction={userDelete}
        deleted={deleted}
-       module="futsal"
+       module="user"
        />
     },
   ]
   return (
     <DashboardLayout title={"Users"}>
       <AdminModuleLayout module={'user'}>
-      <Table dataSource={futsals} columns={columns} pagination={{hideOnSinglePage:true}} />
+      <Table dataSource={users} columns={columns} pagination={{hideOnSinglePage:true}} />
       </AdminModuleLayout>
     </DashboardLayout>
   )

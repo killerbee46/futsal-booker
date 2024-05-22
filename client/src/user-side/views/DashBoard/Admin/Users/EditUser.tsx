@@ -1,11 +1,11 @@
 import React from 'react'
 import DashboardLayout from '../../../../Layouts/DashboardLayout'
-import FutsalForm from '../../../../components/Forms/FutsalForm'
+import UserForm from "../../../../components/Forms/UserForm"
 
 const EditUser = () => {
   return (
-    <DashboardLayout title={"Edit futsal"}>
-        <FutsalForm update />
+    <DashboardLayout title={"Edit User"}>
+        <UserForm update />
     </DashboardLayout>
   )
 }

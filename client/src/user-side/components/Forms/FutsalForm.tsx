@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
-import {Button, Col, Flex, Form, Input, Radio, Row, Typography, message} from 'antd' 
+import {Button, Col, Flex, Form, Input, Row, Typography} from 'antd' 
 import { useForm } from 'antd/es/form/Form'
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { requestRegister } from '../../../api/AuthApi'
 import { createFutsal, getFutsal, updateFutsal } from '../../../api/FutsalApi'
 import { useParams, useNavigate } from 'react-router-dom'
 
