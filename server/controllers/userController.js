@@ -19,9 +19,9 @@ export const getUsers = async (req, res) => {
 
   export const getUser = async (req, res) => {
     try {
-      const futsal = await userModel.findById(req.params.id).select('-password');
+      const user = await userModel.findById(req.params.id).select('-password');
       res.status(200).send({
-        futsal
+        user
       });
     } catch (error) {
       console.log(error);
@@ -119,7 +119,7 @@ export const createUser = async (req, res) => {
       }
       // register user
       // save
-      const futsal = await Futsal.findByIdAndUpdate(req.params.id,{
+      const futsal = await User.findByIdAndUpdate(req.params.id,{
         name,
         location,
         phone,

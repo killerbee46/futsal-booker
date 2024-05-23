@@ -2,10 +2,9 @@ import React, { useEffect } from 'react'
 import {Button, Col, Flex, Form, Input, Radio, Row, Typography} from 'antd' 
 import { useForm } from 'antd/es/form/Form'
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { requestRegister } from '../../../api/AuthApi'
 import { useParams } from 'react-router-dom'
 import { getUser } from '../../../api/UserApis'
-import { createUser, updateUser } from '../../../../../server/controllers/userController'
+import { createUser, updateUser } from '../../../api/UserApis'
 
 const UserForm = ({update}:any) => {
   const [form] = useForm()
@@ -27,10 +26,13 @@ const UserForm = ({update}:any) => {
     register(values) :
     register({...values,password:"password"})
   }
+  const user = data?.data?.user
 
   useEffect(()=> {
     if (id) {
-     form.setFieldsValue(data) 
+     form.setFieldsValue({
+      ...user
+     }) 
     }
   },[id])
   return (
@@ -39,7 +41,7 @@ const UserForm = ({update}:any) => {
       <Typography.Title level={4}>
         {
           update ?
-          "Edit User" :
+          user?.name :
           "Add User"
         }
       </Typography.Title>
@@ -69,9 +71,9 @@ const UserForm = ({update}:any) => {
       </Row>
       <Form.Item label="Role" name={'role'}>
         <Radio.Group>
-          <Radio value={"1"}>Player</Radio>
-          <Radio value={"2"}>Futsal Owner</Radio>
-            <Radio value={"3"}>Super Admin</Radio>
+          <Radio value={1}>Player</Radio>
+          <Radio value={2}>Futsal Owner</Radio>
+            <Radio value={3}>Super Admin</Radio>
         </Radio.Group>
       </Form.Item>
       <Form.Item>
