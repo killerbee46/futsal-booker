@@ -1,93 +1,34 @@
-import upload from "../middlewares/uploadMiddleware.js";
+import Upload from '../models/Upload.js';
+import multer from 'multer';
+import path from "path"
 
-const MongoClient = require("mongodb").MongoClient;
-const GridFSBucket = require("mongodb").GridFSBucket;
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/'+req?.module);
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    },
+});
 
-const url = process.env.MONGO_URL;
+const upload = multer({ storage: storage }).single('file');
 
-const baseUrl = "http://localhost:8080/uploads/";
+export const uploadFile = async (req, res) => {
+    upload(req, res, async (err) => {
+        if (err) {
+            return res.status(500).send('Failed to upload file');
+        }
 
-const mongoClient = new MongoClient(url);
+        const file = new Upload({
+            filename: req.file.filename,
+            filepath: req.file.path,
+        });
 
-export const uploadFiles = async (req, res) => {
-  try {
-    await upload(req, res);
-    console.log(req.file);
-
-    if (req.file == undefined) {
-      return res.send({
-        message: "You must select a file.",
-      });
-    }
-
-    return res.send({
-      message: "File has been uploaded.",
+        try {
+            await file.save();
+            res.status(200).send('File uploaded successfully');
+        } catch (error) {
+            res.status(500).send('Failed to save file information');
+        }
     });
-  } catch (error) {
-    console.log(error);
-
-    return res.send({
-      message: "Error when trying upload image: ${error}",
-    });
-  }
-};
-
-export const getListFiles = async (req, res) => {
-  try {
-    await mongoClient.connect();
-
-    const database = mongoClient.db(dbConfig.database);
-    const images = database.collection(dbConfig.imgBucket + ".files");
-
-    const cursor = images.find({});
-
-    if ((await cursor.count()) === 0) {
-      return res.status(500).send({
-        message: "No files found!",
-      });
-    }
-
-    let fileInfos = [];
-    await cursor.forEach((doc) => {
-      fileInfos.push({
-        name: doc.filename,
-        url: baseUrl + doc.filename,
-      });
-    });
-
-    return res.status(200).send(fileInfos);
-  } catch (error) {
-    return res.status(500).send({
-      message: error.message,
-    });
-  }
-};
-
-export const downloadFile = async (req, res) => {
-  try {
-    await mongoClient.connect();
-
-    const database = mongoClient.db(dbConfig.database);
-    const bucket = new GridFSBucket(database, {
-      bucketName: dbConfig.imgBucket,
-    });
-
-    let downloadStream = bucket.openDownloadStreamByName(req.params.name);
-
-    downloadStream.on("data", function (data) {
-      return res.status(200).write(data);
-    });
-
-    downloadStream.on("error", function (err) {
-      return res.status(404).send({ message: "Cannot download the Image!" });
-    });
-
-    downloadStream.on("end", () => {
-      return res.end();
-    });
-  } catch (error) {
-    return res.status(500).send({
-      message: error.message,
-    });
-  }
 };
