@@ -5,15 +5,16 @@ import type { MenuProps } from 'antd';
 import { Avatar, Dropdown, Space, Typography } from 'antd';
 import { localUser, requestLogout } from '../../../api/AuthApi';
 
-const items: MenuProps['items'] = [
-  {
-    key: 'dashboard',
-    label: (
-      <a href="/dashboard">
-        Dashboard
-      </a>
-    ),
-  },
+const user = localUser()
+
+const items: MenuProps['items'] = (user?.role != 0 ? [  {
+  key: 'dashboard',
+  label: (
+    <a href="/dashboard">
+      Dashboard
+    </a>
+  )
+}]: []).concat([
   {
     key: 'profile',
     label: (
@@ -30,17 +31,16 @@ const items: MenuProps['items'] = [
       </a>
     )
   }
-];
+]);
 
 const UserDropdown = () => {
   const user = localUser()
   return (
   <Dropdown menu={{ items }}>
-      <Typography.Link>
+      <Typography.Link style={{color:'white'}}>
       <Space>
         <Avatar icon={<UserOutlined />} size={30} />
         <div style={{textTransform:"capitalize"}}>{user?.name}</div>
-        <DownOutlined />
       </Space>
       </Typography.Link>
   </Dropdown>

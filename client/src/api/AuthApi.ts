@@ -36,5 +36,6 @@ export const localUser = () => {
 export const requestLogout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("loggedIn");
+  localStorage.removeItem('user')
   window.location.href = "/";
 };

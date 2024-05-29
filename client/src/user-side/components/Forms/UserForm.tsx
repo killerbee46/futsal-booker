@@ -1,32 +1,44 @@
 import React, { useEffect } from 'react'
-import {Button, Col, Flex, Form, Input, Radio, Row, Typography} from 'antd' 
+import {Button, Col, Flex, Form, Input, Radio, Row, Typography, message} from 'antd' 
 import { useForm } from 'antd/es/form/Form'
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useParams } from 'react-router-dom'
 import { getUser } from '../../../api/UserApis'
 import { createUser, updateUser } from '../../../api/UserApis'
+import FileUpload from '../FileUpload/FileUpload'
 
 const UserForm = ({update}:any) => {
   const [form] = useForm()
   const {id} = useParams()
 
-  console.log(id,"user id")
-
-  const {mutate:register, isPending:loading, error} = useMutation({
-    mutationFn:update ? updateUser : createUser
+  const {mutate:register, error} = useMutation({
+    mutationFn:update ? updateUser : createUser,
+    onSuccess:(res)=> {
+      message.success("User created successfully")
+    },
+    onError:(error:any)=> {
+      message.error(error?.response?.data?.message)
+    }
   })
-
+  
   const {data } = useQuery({
-    queryKey:['futsal',id], queryFn:getUser
-})
+    queryKey:['futsal',id], queryFn:getUser, enabled:!!id
+  })
+  const user = data?.data?.user
 
-  const onFinish = (values:any) => {
-    delete values['confirm-password']
+  const onFinish = (data:any) => {
+    delete data['confirm-password']
+    
+    const values = {
+      ...data,
+      photo:user?.photo || data?.photo?.file,
+      status:user?.status || "pending"
+    }
     update ?
-    register(values) :
+    register({...values,
+      id:id}) :
     register({...values,password:"password"})
   }
-  const user = data?.data?.user
 
   useEffect(()=> {
     if (id) {
@@ -34,7 +46,7 @@ const UserForm = ({update}:any) => {
       ...user
      }) 
     }
-  },[id])
+  },[id,data])
   return (
     <>
     {
@@ -46,7 +58,8 @@ const UserForm = ({update}:any) => {
         }
       </Typography.Title>
     }
-    <Form form={form} onFinish={onFinish} layout='vertical'>
+    <Form encType='multipart/form-data' form={form} onFinish={onFinish} layout='vertical'>
+      <FileUpload required label={"Photo"} name='photo' image />
       <Row gutter={30}>
         <Col span={12}>
         <Form.Item label="Full Name" name={'name'}>

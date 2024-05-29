@@ -19,17 +19,41 @@ import UserList from "../views/DashBoard/Admin/Users/UserList";
 import AddUser from "../views/DashBoard/Admin/Users/AddUser";
 import UserDetail from "../views/DashBoard/Admin/Users/UserDetail";
 import EditUser from "../views/DashBoard/Admin/Users/EditUser";
+import Error from "../views/Public/Error";
+import BookingsPage from "../views/Public/BookingsPage";
 
 const user = localUser()
 
 const dashboardRoutes = () => {
   if (user?.role === 1) {
     return [
+      {
+        path: "bookings",
+        element: <BookingsPage />
+      },
     ]
   } else if (user?.role === 2) {
-return[]
+return[
+  {
+    path: "dashboard",
+    element: <DashBoardPage />
+  },
+  
+  {
+    path: "dashboard/booking",
+    element: <DashBoardPage />
+  },
+  {
+    path: "bookings",
+    element: <BookingsPage />
+  },
+]
   } else if (user?.role === 3) {
-    return [
+    return [ 
+  {
+    path: "dashboard",
+    element: <DashBoardPage />
+  },
       {
         path: "dashboard/futsals",
         element: <Outlet />,
@@ -86,6 +110,10 @@ return[]
           },
         ]
       },
+      {
+        path: "bookings",
+        element: <BookingsPage />
+      },
     ]
   } else {
 []
@@ -115,9 +143,9 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: "dashboard",
-    element: <DashBoardPage />
-  },
+    path:"*",
+    element:<Error />
+  }
 ].concat(dashboardRoutes()||[]));
 
 const MainRoutes = () => {

@@ -1,50 +1,23 @@
-import React, { useEffect } from 'react'
-import {Button, Col, Flex, Form, Input, Radio, Row, Typography} from 'antd' 
+import React from 'react'
+import {Button, Flex, Form, Input, Radio, Typography} from 'antd' 
 import { useForm } from 'antd/es/form/Form'
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { requestRegister } from '../../../api/AuthApi'
-import { useParams } from 'react-router-dom'
-import { getUser } from '../../../api/UserApis'
-import { createUser, updateUser } from '../../../../../server/controllers/userController'
+import { createUser, updateUser } from '../../../api/UserApis'
 
 const RegisterForm = ({registerForm, update}:any) => {
   const [form] = useForm()
-  const {id} = useParams()
 
   const {mutate:register, isPending:loading, error} = useMutation({
     mutationFn:registerForm ? requestRegister : update ? updateUser : createUser
   })
 
-  const {data } = useQuery({
-    queryKey:['futsal',id], queryFn:getUser, enabled:!registerForm
-})
-
   const onFinish = (values:any) => {
     delete values['confirm-password']
-    registerForm ?
-    register(values) :
-    update ?
-    register(values) :
-    register({...values,password:"password"})
+    register(values)
   }
-
-  useEffect(()=> {
-    if (id) {
-     form.setFieldsValue(data) 
-    }
-  },[id])
   return (
     <>
-    {
-      !registerForm && 
-      <Typography.Title level={4}>
-        {
-          update ?
-          "Edit User" :
-          "Add User"
-        }
-      </Typography.Title>
-    }
     <Form form={form} onFinish={onFinish} layout='vertical'>
         <Form.Item label="Full Name" name={'name'}>
         <Input />
@@ -73,15 +46,9 @@ const RegisterForm = ({registerForm, update}:any) => {
       <Form.Item>
         <Flex justify='space-between'>
         <Button type='primary' htmlType='submit'>
-          {
-            registerForm ?
-            "Register":
-            update ?
-            "Update":
-            "Create"
-          }
+          Register
         </Button>
-        <Typography.Link hidden={!registerForm} href='/auth/login'>Already Registered?</Typography.Link>
+        <Typography.Link href='/auth/login'>Already Registered?</Typography.Link>
         </Flex>
       </Form.Item>
     </Form>

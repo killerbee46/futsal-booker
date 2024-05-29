@@ -13,7 +13,6 @@ const FutsalDetail = () => {
         queryKey:['futsal',id], queryFn:getFutsal
     })
 
-    console.log(data)
     const futsal = (data?.data?.futsal)
   return (
     <DashboardLayout title={"Futsal Details"}>

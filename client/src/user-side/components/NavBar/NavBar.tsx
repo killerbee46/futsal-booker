@@ -23,7 +23,7 @@ navigate(`/auth/${type}?ref=${ref}`)
 
   return (
     <>
-      <Row className='navbar'>
+      <Row className='navbar' align={'middle'}>
         <Col lg={12} xl={12} xxl={12} md={12} sm={0} xs={0}>
           <Logo withText dark />
         </Col>

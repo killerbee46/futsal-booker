@@ -5,6 +5,7 @@ import Footer from "../components/NavBar/Footer";
 import Layout, { Content } from "antd/es/layout/layout";
 
 const MainLayout = (props: any) => {
+  document.title = (props?.title ? (props?.title + " | "):"")+"Futsal Online"
   return (
     <div>
       <Content>

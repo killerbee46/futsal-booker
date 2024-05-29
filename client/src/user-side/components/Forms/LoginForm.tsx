@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
-import { Button, Flex, Form, Input, Typography } from 'antd'
+import { Button, Flex, Form, Input, Typography, message } from 'antd'
 import { useForm } from 'antd/es/form/Form'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { requestLogin, storeLogin } from '../../../api/AuthApi'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -10,16 +10,22 @@ const LoginForm = () => {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const ref = searchParams.get('ref')
-  const {mutate,isPending:loading} = useMutation({
+  const {mutate,isPending:loading,error} = useMutation({
     mutationFn:requestLogin,
-    onSuccess: (data, variables) => {
-      storeLogin(data)
-      navigate(ref||"")
+    onSuccess: async(data, variables) => {
+      await storeLogin(data)
+      navigate(ref||"/")
+      message.success("Successfully logged in !")
+    },
+    onError: (error:any) => {
+      // An error happened!
+      message.error(error?.response?.data?.message)
     },
   })
   const onFinish = (values:any) => {
 mutate(values)
   }
+
   return (
     <Form layout='vertical' form={form} onFinish={onFinish} >
       <Form.Item label="Email" name={"email"}>

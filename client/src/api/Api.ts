@@ -20,13 +20,11 @@ export const axios: any = setupCache(axioss, {
 const getToken = () => {
     let token: any = false;
     let auths = localStorage.getItem("token") || "";
-    // console.log(JSON.parse(auths), 'auths');
-    // const tokens = JSON.parse(auths);
 
     try {
         token = auths;
     } catch (error) {
-        localStorage.setItem("loggedIn", "false");
+        requestLogout()
     }
     return token;
 };
