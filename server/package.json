@@ -30,5 +30,8 @@
     "nodemon": "^2.0.20",
     "react-icons": "^4.7.1",
     "slugify": "^1.6.5"
+  },
+  "devDependencies": {
+    "@types/multer": "^1.4.11"
   }
 }

@@ -1,6 +1,6 @@
 import util from 'util'
 import multer from "multer"
-import { GridFsStorage } from "multer-gridfs-storage"
+import path from 'path';
 
 var storage = new GridFsStorage({
   url: process.env.MONGO_URL,

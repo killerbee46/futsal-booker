@@ -10,6 +10,7 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 import colors from 'colors';
 import cors from "cors";
 import { responseEnhancer } from "express-response-formatter";
+import multer from "multer";
 
 //configure env
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(responseEnhancer())
+app.use(multer)
 
 //routes
 
