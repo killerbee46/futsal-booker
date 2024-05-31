@@ -9,6 +9,9 @@ const app = express();
 app.use(express.json());
 
 // Routes
+app.get('/api', (req, res)=>{
+  res.status(200).json({message:"server is running"})
+});
 app.use('/users', userRouter);
 
 // Connect to MongoDB
