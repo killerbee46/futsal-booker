@@ -21,6 +21,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-fileupload": "^1.5.0",
     "express-formidable": "^1.2.0",
     "express-response-formatter": "^2.0.2",
     "jsonwebtoken": "^9.0.0",
@@ -29,5 +30,8 @@
     "nodemon": "^2.0.20",
     "react-icons": "^4.7.1",
     "slugify": "^1.6.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17"
   }
 }

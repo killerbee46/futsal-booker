@@ -9,7 +9,7 @@ import AdminModuleLayout from '../../../../Layouts/AdminModuleLayout'
 import { deleteUser, getUsers } from '../../../../../api/UserApis'
 
 const UserList = () => {
-  const {data, refetch} = useQuery({queryKey:['futsals'],queryFn:getUsers})
+  const {data, refetch} = useQuery({queryKey:['users'],queryFn:getUsers})
   const {mutate:userDelete, isSuccess:deleted} = useMutation({
     mutationFn:deleteUser,
     onSuccess:(res:any)=>{
@@ -32,7 +32,7 @@ const UserList = () => {
       title:"Name",
       dataIndex:'name',
       key:'name',
-      render:(name,row,i)=><Typography.Link href={`/dashboard/users/${row?._id}`}>{name}</Typography.Link>
+      render:(name,row,i)=><Typography.Link href={`/dashboard/users/${row?._id}/edit`}>{name}</Typography.Link>
     },
     {
       title:"Address",

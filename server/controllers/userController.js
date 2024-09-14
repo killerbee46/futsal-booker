@@ -96,18 +96,18 @@ export const createUser = async (req, res) => {
     try {
       const { name, location, google_map_location_string, phone, owner } = req.body;
       //validations
-      if (!name) {
-        return res.send({ error: "Name is Required" });
-      }
-      if (!location) {
-        return res.send({ error: "Location is Required" });
-      }
-      if (!google_map_location_string) {
-        return res.send({ error: "Google map location is Required" });
-      }
-      if (!phone) {
-        return res.send({ error: "Phone no is Required" });
-      }
+      // if (!name) {
+      //   return res.status(400).send({ error: "Name is Required" });
+      // }
+      // if (!location) {
+      //   return res.status(400).send({ error: "Location is Required" });
+      // }
+      // if (!google_map_location_string) {
+      //   return res.status(400).send({ error: "Google map location is Required" });
+      // }
+      // if (!phone) {
+      //   return res.status(400).send({ error: "Phone no is Required" });
+      // }
       // check user
       const registeredFutsal = await Futsal.findOne({ name });
       //exisiting user

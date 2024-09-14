@@ -30,8 +30,8 @@ form.setFieldsValue(data?.data?.futsal)
   },[data])
   return (
     <>
-    <Typography.Title level={4} style={{marginTop:0}}>{
-      update ? data?.data?.futsal : "Add Futsal"
+    <Typography.Title level={4} style={{marginTop:0, marginBottom:20}}>{
+      update ? data?.data?.futsal?.name : "Add Futsal"
     }</Typography.Title>
     <Form form={form} onFinish={onFinish} layout='vertical'>
       <Row gutter={30}>

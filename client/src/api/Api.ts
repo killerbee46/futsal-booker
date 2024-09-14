@@ -4,7 +4,7 @@ import { buildWebStorage, setupCache } from "axios-cache-interceptor";
 
 import { requestLogout } from "./AuthApi";
 
-export const baseUrl = "http://localhost:8080/api";
+export const baseUrl = "http://localhost:8080";
 // Same object, new types.
 export const axios: any = setupCache(axioss, {
     debug: console.log,
@@ -105,7 +105,7 @@ export const AuthApi = axios.create({
 });
 
 const API = axios.create({
-    baseURL: `${baseUrl}/`,
+    baseURL: `${baseUrl}/api`,
 });
 
 // ({

@@ -31,7 +31,7 @@ const FutsalList = () => {
       title:"Name",
       dataIndex:'name',
       key:'name',
-      render:(name,row,i)=><Typography.Link href={`${row?._id}`}>{name}</Typography.Link>
+      render:(name,row,i)=><Typography.Link href={`futsals/${row?._id}/edit`}>{name}</Typography.Link>
     },
     {
       title:"Location",

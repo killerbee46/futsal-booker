@@ -6,6 +6,7 @@ import apiRoutes from "./routes/apiRoutes.js";
 import authRoutes from "./routes/authRoute.js";
 import futsalRoutes from "./routes/futsalRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 import cors from "cors";
 
 //configure env
@@ -33,9 +34,10 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", apiRoutes);
-app.use("/api/auth", authRoutes);
+app.use("/auth", authRoutes);
 app.use("/api/futsal", futsalRoutes);
 app.use("/api/user", userRoutes);
+app.use("/upload", uploadRoutes)
 
 //PORT
 const PORT = process.env.PORT || 8080;

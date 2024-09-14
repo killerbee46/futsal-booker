@@ -1,20 +1,24 @@
 import { useMutation } from '@tanstack/react-query'
 import { Button, Flex, Form, Input, Typography } from 'antd'
 import { useForm } from 'antd/es/form/Form'
-import React from 'react'
+import React, { useState } from 'react'
 import { requestLogin, storeLogin } from '../../../api/AuthApi'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 const LoginForm = () => {
   const [form] = useForm()
   const [searchParams] = useSearchParams()
+  const [error, setError] = useState('')
   const navigate = useNavigate()
   const ref = searchParams.get('ref')
   const {mutate,isPending:loading} = useMutation({
     mutationFn:requestLogin,
-    onSuccess: (data, variables) => {
+    onSuccess: (data) => {
       storeLogin(data)
       navigate(ref||"")
+    },
+    onError(error:any) {
+      setError(error?.response?.data?.message+ " !")
     },
   })
   const onFinish = (values:any) => {
@@ -29,6 +33,10 @@ mutate(values)
         <Input />
       </Form.Item>
       <Form.Item>
+        {
+          error && error !== "" &&
+          <Typography.Paragraph type='danger'>{error}</Typography.Paragraph>
+        }
       <Flex justify='space-between'>
         <Button loading={loading} type='primary' htmlType='submit'>Submit</Button>
         <Typography.Link href='/auth/register'>Don't have an account?</Typography.Link>
