@@ -1,12 +1,7 @@
-import { Router } from 'express';
-import { uploadFile, uploadedFile } from '../controllers/uploadController.js';
+import express from "express";
 
-const router = Router();
+const router = express.Router();
 
-// Get all users
-router.get('/', uploadedFile);
+router.post("/upload", ()=>{});
 
-// Create a new user with file upload
-router.post('/', uploadFile);
-
-export default router;
+export default router

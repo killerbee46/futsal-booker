@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {Button, Col, Flex, Form, Input, Row, Typography} from 'antd' 
+import {Button, Col, Flex, Form, Input, Row, Typography, message} from 'antd' 
 import { useForm } from 'antd/es/form/Form'
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { createFutsal, getFutsal, updateFutsal } from '../../../api/FutsalApi'
@@ -13,25 +13,37 @@ const FutsalForm = ({update}:any) => {
       queryKey:['futsal',id], queryFn:getFutsal
   })
 
+  const futsal = data?.data?.futsal
+
   const {mutate:submit, isPending:loading, error} = useMutation({
-    mutationFn:update?updateFutsal:createFutsal
+    mutationFn:update?updateFutsal:createFutsal,
+    onSuccess: async(data:any) => {
+      message.success(data?.data?.message)
+      navigate('/dashboard/futsals')
+    },
+    onError: (error, variables, context) => {
+      // An error happened!
+      message.error(error.message)
+    },
   })
 
   const onFinish = (values:any) => {
     if (update) {
-      submit({...values,id:data?.data?.futsal?._id})
+      console.log({...values,id:futsal?._id})
     } else {
       submit(values)
     }
   }
 
   useEffect(()=> {
-form.setFieldsValue(data?.data?.futsal)
+form.setFieldsValue({
+  ...futsal
+})
   },[data])
   return (
     <>
-    <Typography.Title level={4} style={{marginTop:0, marginBottom:20}}>{
-      update ? data?.data?.futsal?.name : "Add Futsal"
+    <Typography.Title level={4} style={{marginTop:0}}>{
+      update ? futsal?.name : "Add Futsal"
     }</Typography.Title>
     <Form form={form} onFinish={onFinish} layout='vertical'>
       <Row gutter={30}>

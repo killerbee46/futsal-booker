@@ -1,41 +1,50 @@
 import React, { useEffect } from 'react'
-import {Button, Col, Flex, Form, Image, Input, Radio, Row, Typography} from 'antd' 
+import {Button, Col, Flex, Form, Input, Radio, Row, Typography, message} from 'antd' 
 import { useForm } from 'antd/es/form/Form'
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useParams } from 'react-router-dom'
 import { getUser } from '../../../api/UserApis'
 import { createUser, updateUser } from '../../../api/UserApis'
-// import FileUpload from '../FileUpload/FileUpload'
+import FileUpload from '../FileUpload/FileUpload'
 
 const UserForm = ({update}:any) => {
   const [form] = useForm()
   const {id} = useParams()
 
-  console.log(id,"user id")
-
-  const {mutate:register, isPending:loading} = useMutation({
-    mutationFn:update ? updateUser : createUser
+  const {mutate:register, error} = useMutation({
+    mutationFn:update ? updateUser : createUser,
+    onSuccess:(res)=> {
+      message.success("User created successfully")
+    },
+    onError:(error:any)=> {
+      message.error(error?.response?.data?.message)
+    }
   })
-
+  
   const {data } = useQuery({
-    queryKey:['futsal',id], queryFn:getUser,enabled:!!id
-})
+    queryKey:['futsal',id], queryFn:getUser, enabled:!!id
+  })
+  const user = data?.data?.user
 
-  const onFinish = (values:any) => {
-    delete values['confirm-password']
+  const onFinish = (data:any) => {
+    delete data['confirm-password']
+    
+    const values = {
+      ...data,
+      photo:user?.photo || data?.photo?.file,
+      status:user?.status || "pending"
+    }
     update ?
-    register(values) :
+    register({...values,
+      id:id}) :
     register({...values,password:"password"})
   }
-  const user = data?.data?.user
 
   useEffect(()=> {
     if (data) {
      form.setFieldsValue(user) 
     }
-  },[data])
-
-  const userImage = "https://imgs.search.brave.com/-E39lOB7yNIc5Ymx_yPhHhA1zFySZt_DSF-KSsl_mOQ/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAwLzg0LzY3LzE5/LzM2MF9GXzg0Njcx/OTM5X2p4eW1vWVpP/OE9lYWNjM0pSQkRF/OGJTWEJXajBaZkE5/LmpwZw"
+  },[id,data])
   return (
     <>
         {
@@ -43,9 +52,8 @@ const UserForm = ({update}:any) => {
           <Typography.Title level={4}>{user?.name}</Typography.Title> :
           <Typography.Title level={4}>{"Add User"}</Typography.Title>
         }
-        <Image src={userImage} width={150} preview={false} style={{aspectRatio:"1/1"}} />
-    <Form form={form} onFinish={onFinish} layout='vertical' encType='multipart/form-data'>
-      {/* <FileUpload module={"user"} type={"image"} /> */}
+    <Form encType='multipart/form-data' form={form} onFinish={onFinish} layout='vertical'>
+      <FileUpload />
       <Row gutter={30}>
         <Col span={12}>
         <Form.Item label="Full Name" name={'name'}>
@@ -77,7 +85,7 @@ const UserForm = ({update}:any) => {
       </Form.Item>
       <Form.Item>
         <Flex justify='flex-end'>
-        <Button loading={loading} type='primary' htmlType='submit'>
+        <Button type='primary' htmlType='submit'>
           {
             update ?
             "Update":

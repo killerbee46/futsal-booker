@@ -8,13 +8,11 @@ import { ConfigProvider } from "antd";
 import { themeConfig } from "./user-side/themes/themeConfig";
 
 createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <ConfigProvider
   theme={themeConfig}
 >
   <App />
 </ConfigProvider>
-  </React.StrictMode>
 );
 
 reportWebVitals();

@@ -1,38 +1,44 @@
-import { saveFile } from "../middlewares/uploadMiddleware.js";
-import Upload from "../models/Upload.js";
 
-export const uploadedFile = async (req, res) => {
-  try {
-    const users = await Upload.find();
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+class UploadController {
+  async upload(req, res) {
+    try {
+      const { error } = await uploadSchema.validate(req.body);
+      if (error) {
+        return responseFormatter(req, res, 400, error?.details[0]?.message);
+      }
+
+      const uploadedFiles = req.files?.files;
+
+      const uploadedDocuments = [];
+
+      const directory = req.body?.directory || "";
+      const type = req.body?.type || "";
+      const fieldName = "files";
+
+      if (uploadedFiles) {
+        if (uploadedFiles instanceof Array && uploadedFiles instanceof Object) {
+          uploadedDocuments.push(
+            ...multipleFileUpload(req, directory, fieldName, true, type)
+          );
+        } else if (uploadedFiles instanceof Object) {
+          uploadedDocuments.push(
+            fileUpload(req, directory, fieldName, true, type)
+          );
+        }
+      } else {
+        return responseFormatter(req, res, 400, "no files to upload");
+      }
+
+      return responseFormatter(req, res, 201, uploadedDocuments);
+    } catch (e) {
+      return responseFormatter(
+        req,
+        res,
+        e instanceof FileUploadError ? 400 : 500,
+        e
+      );
+    }
   }
 }
 
-export const uploadFile = async (req, res) => {
-  // if (!req.files || !req.files.file) {
-    return res.status(200).json({ message: req });
-  // }
-
-  const avatarFile = req.files.file;
-  let avatarPath;
-  try {
-    avatarPath = await saveFile(avatarFile);
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
-  }
-
-  const upload = new Upload({
-    module: req.body.module,
-    type: req.body.type,
-    file: file // Store file path in avatar field
-  });
-
-  try {
-    const newUpload = await upload.save();
-    res.status(201).json(newUpload);
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-  }
-}
+export default UploadController;

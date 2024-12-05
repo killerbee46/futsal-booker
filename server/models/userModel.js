@@ -12,6 +12,14 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    photo:{
+        data: Buffer,
+        contentType: String,
+    },
+    status:{
+      type: String,
+      required: false,
+    },
     password: {
       type: String,
       required: true,

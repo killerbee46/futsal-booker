@@ -15,13 +15,13 @@ const UserDetail = () => {
     })
 
     console.log(data)
-    const futsal = (data?.data?.futsal)
+    const user = (data?.data?.user)
   return (
-    <DashboardLayout title={"Futsal Details"}>
-        <Typography.Title level={2}>{futsal?.name} <EditOutlined onClick={()=>navigate(`edit`)} /></Typography.Title>
-        <Typography.Text>{futsal?.address}</Typography.Text><br />
-        <Typography.Link href={`mailto:${futsal?.email}`}>{futsal?.email}</Typography.Link><br />
-        <Typography.Link href={`tel:${futsal?.phone}`}>{futsal?.phone}</Typography.Link>
+    <DashboardLayout title={"User Details"}>
+        <Typography.Title level={2}>{user?.name} <EditOutlined onClick={()=>navigate(`edit`)} /></Typography.Title>
+        <Typography.Text>{user?.address}</Typography.Text><br />
+        <Typography.Link href={`mailto:${user?.email}`}>{user?.email}</Typography.Link><br />
+        <Typography.Link href={`tel:${user?.phone}`}>{user?.phone}</Typography.Link>
     </DashboardLayout>
   )
 }

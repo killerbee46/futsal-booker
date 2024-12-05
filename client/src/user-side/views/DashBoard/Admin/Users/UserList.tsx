@@ -1,7 +1,6 @@
 import React from 'react'
 import DashboardLayout from '../../../../Layouts/DashboardLayout'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { deleteFutsal, getFutsals } from '../../../../../api/FutsalApi'
 import { Table, Typography, message } from 'antd'
 import { SettingOutlined } from '@ant-design/icons'
 import TableAction from '../../../../components/TableAction/TableAction'
@@ -20,7 +19,7 @@ const UserList = () => {
     }
   })
 
-  const users = data?.data?.users
+  const users = data?.data?.data
   const columns = [
     {
       title:"SN",

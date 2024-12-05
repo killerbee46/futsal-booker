@@ -4,12 +4,12 @@
   "description": "online futsal booking system",
   "main": "index.js",
   "scripts": {
-    "setup":"cd client && yarn && cd ../server && yarn",
-    "setup:frontend":"cd client && yarn",
-    "setup:backend":"cd server && yarn",
-    "start":"cd client && yarn start && cd ../server && yarn dev",
-    "start:frontend":"cd client && yarn dev",
-    "start:backend":"cd server && yarn dev"
+    "setup": "cd client && yarn && cd ../server && yarn",
+    "setup:frontend": "cd client && yarn",
+    "setup:backend": "cd server && yarn",
+    "start": "cd client && yarn start && cd ../server && yarn dev",
+    "start:frontend": "cd client && yarn dev",
+    "start:backend": "cd server && yarn dev"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/killerbee46/futsal-booker/issues"
   },
-  "homepage": "https://github.com/killerbee46/futsal-booker#readme"
+  "homepage": "https://github.com/killerbee46/futsal-booker#readme",
+  "dependencies": {
+    "dayjs": "^1.11.11",
+    "express-fileupload": "^1.5.0",
+    "fs": "^0.0.1-security"
+  }
 }

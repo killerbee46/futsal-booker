@@ -23,10 +23,12 @@ export const createUser = (data: any) => {
 };
 
 export const updateUser = (data: any) => {
+  const id = data.id 
+  delete data.id
   return API({
     method: "PUT",
     data: data,
-    url: `/user/update/${data?.id}`,
+    url: `/user/update/${id}`,
   });
 };
 
