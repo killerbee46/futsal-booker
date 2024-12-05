@@ -2,39 +2,33 @@ import React from 'react';
 import { Upload, message, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import { uploadFile } from '../../../api/UploadApi';
-import { useMutation } from '@tanstack/react-query';
 
-type FileTypes = {
-    module:"user"|"futsal"|"team";
-    type:"docs"|"image";
-}
-
-const FileUpload = ({module,type}:FileTypes) => {
-    const {mutate:upload} = useMutation({
-        mutationFn:uploadFile
-    })
+const FileUpload = () => {
     const props = {
         name: 'file',
-        // action: 'http://localhost:8080/upload',
+        action: 'http://localhost:8000/upload',
         headers: {
             authorization: 'authorization-text',
         },
-        CustomEvent:()=>{
-            console.log("uploading")
-        },
         onChange(info) {
-            const formData = new FormData()
-            formData.append("module",module),
-            formData.append("type",type),
-            formData.append("file",info?.file?.originFileObj)
-            // const formData = {
-            //     file:info?.file?.originFileObj,
-            //     module:module||"any",
-            //     type:type||"any"
-            // }
-            upload(formData)
-        }
+            if (info.file.status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+        // customRequest: ({ file, onSuccess, onError }) => {
+        //     const formData = new FormData();
+        //     formData.append('file', file);
+
+        //     axios.post('http://localhost:5000/upload', formData)
+        //         .then(response => {
+        //             onSuccess(response.data);
+        //         })
+        //         .catch(error => {
+        //             onError(error);
+        //         });
+        // },
     };
 
     return (
