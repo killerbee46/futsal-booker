@@ -3,13 +3,7 @@ import mongoose from "mongoose";
 const fileSchema = new mongoose.Schema({
   type: String,
   module: String,
-  file:Buffer,
-  filename: String,
-  filepath: String,
-  date: {
-      type: Date,
-      default: Date.now,
-  },
+  file:Buffer
 });
 
 export default mongoose.model("uploads", fileSchema);

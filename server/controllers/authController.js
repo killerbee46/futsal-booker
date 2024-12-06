@@ -1,6 +1,5 @@
 import userModel from "../models/userModel.js";
 import orderModel from "../models/orderModel.js";
-import formatter from "express-response-formatter"
 
 import { comparePassword, hashPassword } from "./../helpers/authHelper.js";
 import JWT from "jsonwebtoken";
@@ -58,7 +57,7 @@ export const registerController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error in Registeration",
+      message: "Errro in Registeration",
       error,
     });
   }
@@ -70,9 +69,9 @@ export const loginController = async (req, res) => {
     const { email, password } = req.body;
     //validation
     if (!email || !password) {
-      // res.formatter.ok()
-      return res.status(400).send({
-        message: "Invalid email or password"
+      return res.status(404).send({
+        success: false,
+        message: "Invalid email or password",
       });
     }
     //check user
@@ -85,7 +84,7 @@ export const loginController = async (req, res) => {
     }
     const match = await comparePassword(password, user.password);
     if (!match) {
-      return res.status(400).send({
+      return res.status(401).send({
         success: false,
         message: "Invalid Password",
       });

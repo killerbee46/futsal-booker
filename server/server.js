@@ -7,10 +7,7 @@ import authRoutes from "./routes/authRoute.js";
 import futsalRoutes from "./routes/futsalRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
-import colors from 'colors';
 import cors from "cors";
-import { responseEnhancer } from "express-response-formatter";
-import multer from "multer";
 
 //configure env
 dotenv.config();
@@ -25,8 +22,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(responseEnhancer())
-app.use(multer)
 
 //routes
 
@@ -42,7 +37,7 @@ app.use("/api", apiRoutes);
 app.use("/auth", authRoutes);
 app.use("/api/futsal", futsalRoutes);
 app.use("/api/user", userRoutes);
-app.use("/upload", uploadRoutes);
+app.use("/upload", uploadRoutes)
 
 //PORT
 const PORT = process.env.PORT || 8080;
