@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const fileSchema = new mongoose.Schema({
-  type: String,
-  module: String,
-  file:Buffer
+  image:{
+    type:String
+  }
 });
 
 export default mongoose.model("uploads", fileSchema);

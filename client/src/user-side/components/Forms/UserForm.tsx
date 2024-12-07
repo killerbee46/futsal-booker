@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import {Button, Col, Flex, Form, Input, Radio, Row, Typography, message} from 'antd' 
 import { useForm } from 'antd/es/form/Form'
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { getUser } from '../../../api/UserApis'
 import { createUser, updateUser } from '../../../api/UserApis'
 import FileUpload from '../FileUpload/FileUpload'
@@ -10,11 +10,16 @@ import FileUpload from '../FileUpload/FileUpload'
 const UserForm = ({update}:any) => {
   const [form] = useForm()
   const {id} = useParams()
+  const navigate = useNavigate()
 
   const {mutate:register, error} = useMutation({
     mutationFn:update ? updateUser : createUser,
     onSuccess:(res)=> {
-      message.success("User created successfully")
+      {
+        !update && 
+        navigate('/dashboard/users')
+      }
+      message.success(`User ${update ? "Updated" : "Created"} successfully`)
     },
     onError:(error:any)=> {
       message.error(error?.response?.data?.message)
@@ -52,8 +57,8 @@ const UserForm = ({update}:any) => {
           <Typography.Title level={4}>{user?.name}</Typography.Title> :
           <Typography.Title level={4}>{"Add User"}</Typography.Title>
         }
-    <Form encType='multipart/form-data' form={form} onFinish={onFinish} layout='vertical'>
-      <FileUpload />
+    <Form form={form} onFinish={onFinish} layout='vertical'>
+      <FileUpload name='image' form={form} />
       <Row gutter={30}>
         <Col span={12}>
         <Form.Item label="Full Name" name={'name'}>

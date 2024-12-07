@@ -35,7 +35,7 @@ export const getUsers = async (req, res) => {
 
 export const createUser = async (req, res) => {
     try {
-        const { name, email, password, phone, address, role } = req.body;
+        const { name, email, password, phone, address, role, image } = req.body;
         //validations
         if (!name) {
           return res.send({ error: "Name is Required" });
@@ -74,7 +74,7 @@ export const createUser = async (req, res) => {
           address,
           password: hashedPassword,
           role,
-          
+          image
         }).save();
     
         res.status(201).send({
@@ -94,7 +94,7 @@ export const createUser = async (req, res) => {
 
   export const updateUser = async (req, res) => {
     try {
-      const { name, location, google_map_location_string, phone, owner } = req.body;
+      const { name, location, google_map_location_string, phone, image } = req.body;
       //validations
       // if (!name) {
       //   return res.status(400).send({ error: "Name is Required" });
@@ -109,34 +109,34 @@ export const createUser = async (req, res) => {
       //   return res.status(400).send({ error: "Phone no is Required" });
       // }
       // check user
-      const registeredFutsal = await Futsal.findOne({ name });
+      const registeredUser = await userModel.findOne({ name });
       //exisiting user
-      if (registeredFutsal && registeredFutsal._id != req.params.id) {
+      if (registeredUser && registeredUser._id != req.params.id) {
         return res.status(409).send({
           success: false,
-          message: "Futsal with the same name already registered",
+          message: "User with the same name already registered",
         });
       }
       // register user
       // save
-      const futsal = await User.findByIdAndUpdate(req.params.id,{
+      const user = await userModel.findByIdAndUpdate(req.params.id,{
         name,
         location,
         phone,
+        image,
         google_map_location_string,  
       })
-      await futsal.save();
+      await user.save();
   
       res.status(201).send({
         success: true,
-        message: "Futsal updated Successfully",
-        futsal,
+        message: "User updated Successfully",
+        user,
       });
     } catch (error) {
-      console.log(error);
       res.status(500).send({
         success: false,
-        message: "Error while updating futsal",
+        message: "Error while updating user",
         error,
       });
     }

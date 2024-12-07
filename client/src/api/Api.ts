@@ -105,6 +105,9 @@ export const AuthApi = axios.create({
 const API = axios.create({
     baseURL: `${baseUrl}/api`,
 });
+export const MediaAPI = axios.create({
+    baseURL: `${baseUrl}`,
+});
 
 // ({
 //   baseURL: `${baseUrl}`,
@@ -145,7 +148,7 @@ export const MediaApis = axios.create({
 MediaApis.interceptors.request.use(
     async (config: any) => {
         config.headers = {
-            Authorization: `Bearer ${getToken()}`,
+            // Authorization: `Bearer ${getToken()}`,
             "Content-Type": "multipart/form-data",
         };
         return config;

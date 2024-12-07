@@ -19,7 +19,8 @@ const UserList = () => {
     }
   })
 
-  const users = data?.data?.data
+  const users = data?.data?.users
+  
   const columns = [
     {
       title:"SN",

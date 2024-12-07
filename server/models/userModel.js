@@ -32,6 +32,9 @@ const userSchema = new mongoose.Schema(
       type: Number,
       required: false,
     },
+    image:{
+      type:String
+    },
     role: {
       type: Number,
       default: 0,

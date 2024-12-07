@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { uploadFile, uploadedFile } from '../controllers/uploadController.js';
+import { upload } from '../middlewares/uploadMiddleware.js';
 
 const router = Router();
-
-// Get all users
+// Get all files
 router.get('/', uploadedFile);
 
-// Create a new user with file upload
-router.post('/', uploadFile);
+// file upload
+router.post('/', upload.single('image'), uploadFile);
 
 export default router;
