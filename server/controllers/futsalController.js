@@ -34,7 +34,7 @@ export const getFutsals = async (req, res) => {
 
 export const createFutsal = async (req, res) => {
     try {
-      const { name, location, google_map_location_string, phone, owner } = req.body;
+      const { name, location, google_map_location_string, phone, image } = req.body;
       //validations
       if (!name) {
         return res.send({ error: "Name is Required" });
@@ -59,18 +59,18 @@ export const createFutsal = async (req, res) => {
       }
       //register user
       //save
-      const user = await new Futsal({
+      const futsal = await new Futsal({
         name,
         location,
         phone,
         google_map_location_string,
-        
+        image
       }).save();
   
       res.status(201).send({
         success: true,
         message: "Futsal added Successfully",
-        user,
+        futsal,
       });
     } catch (error) {
       console.log(error);
@@ -84,7 +84,7 @@ export const createFutsal = async (req, res) => {
 
   export const updateFutsal = async (req, res) => {
     try {
-      const { name, location, google_map_location_string, phone, owner } = req.body;
+      const { name, location, google_map_location_string, phone, image } = req.body;
       //validations
       if (!name) {
         return res.send({ error: "Name is Required" });
@@ -114,6 +114,7 @@ export const createFutsal = async (req, res) => {
         location,
         phone,
         google_map_location_string,  
+        image
       })
       await futsal.save();
   
@@ -143,7 +144,7 @@ export const createFutsal = async (req, res) => {
       console.log(error);
       res.status(500).send({
         success: false,
-        message: "Error while deleting product",
+        message: "Error while deleting futsal",
         error,
       });
     }

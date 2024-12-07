@@ -4,6 +4,7 @@ import { useForm } from 'antd/es/form/Form'
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { createFutsal, getFutsal, updateFutsal } from '../../../api/FutsalApi'
 import { useParams, useNavigate } from 'react-router-dom'
+import FileUpload from '../FileUpload/FileUpload'
 
 const FutsalForm = ({update}:any) => {
   const [form] = useForm()
@@ -46,6 +47,7 @@ form.setFieldsValue({
       update ? futsal?.name : "Add Futsal"
     }</Typography.Title>
     <Form form={form} onFinish={onFinish} layout='vertical'>
+      <FileUpload name='image' form={form} />
       <Row gutter={30}>
         <Col span={12}>
         <Form.Item label="Name of Futsal" name={'name'}>
