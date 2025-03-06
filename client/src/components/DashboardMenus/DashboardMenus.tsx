@@ -53,6 +53,9 @@ export const filteredDashMenu = () => {
                     {
                         label:"Futsals",key:"dashboard/futsals",icon:<EnvironmentOutlined />
                     },
+                    {
+                        label:"Bookings",key:"dashboard/bookings",icon:<UnorderedListOutlined />
+                    },
                 ]
         default:
             return []

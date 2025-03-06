@@ -32,7 +32,6 @@ export const Nav2 = ({
     <>
       <Affix
         className="navbar_container py-4 px-10 bg"
-        // style={{ background: backgroundColor || "#52c0db" }}
       >
         <Row className="navbar" justify={"space-between"} align={"middle"}>
           <Col lg={2}>

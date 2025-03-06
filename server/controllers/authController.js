@@ -1,5 +1,4 @@
 import userModel from "../models/userModel.js";
-import Booking from "../models/Booking.js";
 
 import { comparePassword, hashPassword } from "./../helpers/authHelper.js";
 import JWT from "jsonwebtoken";
@@ -102,6 +101,7 @@ export const loginController = async (req, res) => {
         email: user.email,
         phone: user.phone,
         address: user.address,
+        image:user.image,
         role: user.role,
       },
       token,

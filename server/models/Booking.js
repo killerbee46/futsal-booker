@@ -1,17 +1,22 @@
 import mongoose from "mongoose";
 
-const orderSchema = new mongoose.Schema(
+const bookingSchema = new mongoose.Schema(
   {
-    products: [
-      {
+    futsal: {
         type: mongoose.ObjectId,
         ref: "Futsals",
       },
-    ],
     payment: {},
-    buyer: {
+    time:{},
+    date:{
+      type:String
+    },
+    rate:{
+      type:String,
+    },
+    booker: {
       type: mongoose.ObjectId,
-      ref: "users",
+      ref: "Users",
     },
     status: {
       type: String,
@@ -22,4 +27,4 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Order", orderSchema);
+export default mongoose.model("Booking", bookingSchema);

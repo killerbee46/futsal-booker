@@ -1,34 +1,47 @@
 import { Flex, Space } from "antd";
 import Title from "antd/es/typography/Title";
-import Text from "antd/es/typography/Text";
-import React from "react";
 import { Header_types } from "../Header_types";
-import MainContainer from "@/components/Maincontainer/Maincontainer";
+import MainContainer from "../../Maincontainer/Maincontainer";
+import Paragraph from "antd/es/typography/Paragraph";
+import TabFilter from "../../../components/TabFilter/TabFilter";
+import Container from "../../../Layouts/Container";
 
-export const Header2 = ({ title, image }: Header_types) => {
+const defaultImage = "https://imgs.search.brave.com/mNX8gu0dTdTRoFaEui38ApO9lU7iL_YJjaDb3_id53w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAyLzg1LzkzLzI2/LzM2MF9GXzI4NTkz/MjY3M19YcWpsdk12/QWVFZkMxM2Z4YTFH/WXBETnVGM2t0QnhY/WS5qcGc"
+
+export const Header2 = ({ title,description, image=defaultImage, tabFilter }: Header_types) => {
   return (
+    <>
     <MainContainer
       wraperStyle={{
-        background: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url(${image})`,
+        background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${image})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <Flex className="justify-center items-center h-[250px] md:h-[300px] lg:[400px] xl:h-[450px] relative">
+      <Flex className={`flex-col pt-[10%] justify-center items-start w-full relative ${ (title || description) ? 'aspect-[7/4] md:aspect-[7/3]' :  'aspect-[7/3] md:aspect-[7/2]'}`}>
         <Title
-          level={1}
-          className="text-center !text-bold !text-white uppercase"
+          level={5}
+          className="!text-semibold !text-white uppercase"
         >
           {title}
         </Title>
-        <Space className="bg-primary px-3 py-2 md:px-5 md:py-4  absolute -bottom-[18px]  md:-bottom-[28px]">
-          <Text className="text-white md:!text-lg font-semibold">
-            Home ~ About Us
-          </Text>
-        </Space>
+        <Paragraph
+          className="!text-bold !text-white uppercase w-3/4"
+        >
+          {description}
+        </Paragraph>
       </Flex>
     </MainContainer>
+      {
+        tabFilter &&
+        <div className="-translate-y-[50%] -mb-8">
+          <Container>
+          <TabFilter />
+        </Container>
+        </div>
+      }
+    </>
   );
 };
 

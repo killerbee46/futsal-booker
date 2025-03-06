@@ -1,4 +1,4 @@
-import { Card, Image } from 'antd'
+import { Card, Flex, Image, Typography } from 'antd'
 import React from 'react'
 import getImage from '../../utils/getImage'
 import { Link } from 'react-router-dom'
@@ -9,9 +9,13 @@ const FutsalCard = (data:any) => {
   return (
     <Link to={`/futsals/${data?._id}`}>
     <div>
-        <Card cover={<Image preview={false} style={{aspectRatio:'2/1'}} src={(futsal.image && getImage(futsal.image))||noImage} />}>
-        <p><b>{futsal.name}</b></p>
-        <p>{futsal.phonr}</p>
+        <Card className='rounded-lg' cover={<Image className='rounded-lg' preview={false} style={{aspectRatio:'2/1'}} src={(futsal.image && getImage(futsal.image))||noImage} />}>
+        <Typography.Paragraph className='font-semibold'>{futsal.name}</Typography.Paragraph>
+        <Typography.Paragraph className='text-slate-500 !text-xs my-1'>{futsal.location}</Typography.Paragraph>
+        <Flex justify='space-between'>
+        <Typography.Paragraph className=' !text-xs'>{futsal?.phone}</Typography.Paragraph>
+        <Typography.Paragraph className=' !text-xs'>{futsal?.rate || '1000'} /Hr</Typography.Paragraph>
+        </Flex>
         </Card>
     </div>
     </Link>

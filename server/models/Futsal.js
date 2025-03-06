@@ -42,4 +42,4 @@ const FutsalSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("futsals", FutsalSchema);
+export default mongoose.model("Futsals", FutsalSchema);

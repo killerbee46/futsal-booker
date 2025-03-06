@@ -4,30 +4,32 @@ import {
   Col,
   Drawer,
   Flex,
-  Menu,
   Row,
   Space,
   Typography,
-  Image,
 } from "antd";
 import LoginHandler from "../../LoginHandler/LoginHandler";
 import SearchBar from "../../searchbar/SearchBar1/SearchBar";
 import { MenuOutlined, UpOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { MenuItemTypes, NavbarPropsTypes } from "../Navbar.types";
+import Header2 from "../../Header/Header2/Header";
+import Logo from "../../../components/Logo/Logo";
 
 export const Nav4 = ({
   auth,
   searchable,
   data,
   backgroundColor,
-  transparent
+  transparent,
+  bannerData,
+tabFilter
 }: NavbarPropsTypes) => {
     const { menus, logo, name } = data;
     const [menuOpen, setMenuOpen] = useState(false);
     const [top, setTop] = useState("transparent");
     const hasBanner = transparent
-    const textColor = top === "transparent" ? "white" : "black";
+    const textColor = top === "transparent" ? "white" : "white";
     const menuSwitch = () => {
       setMenuOpen(!menuOpen);
     };
@@ -64,24 +66,14 @@ export const Nav4 = ({
             gutter={20}
             style={{ backgroundColor: top }}
           >
-            <Col lg={5}>
-              <a href="/">
-                <Space>
-                  <Image
-                    preview={false}
-                    src={logo || defaultLogo}
-                    width={50}
-                    className="aspect-square"
-                    alt="logo"
-                  />
-                  <Typography.Text className={`font-bold !text-${textColor}`}>
-                    <div dangerouslySetInnerHTML={{__html:name||""}} />
-                  </Typography.Text>
-                </Space>
-              </a>
+            <Col lg={3} xs={0} className="lg:block hidden">
+              <Logo withText />
             </Col>
-            <Col lg={13} md={0} sm={0} xs={0}>
-              <Row justify={"start"} style={{ gap: 20 }} className="navMenu">
+            <Col lg={0} xs={6} sm={5} md={4} className="block lg:hidden">
+              <Logo />
+            </Col>
+            <Col lg={15} md={0} sm={0} xs={0} className="lg:block hidden">
+              <Row justify={"end"} style={{ gap: 20 }} className="navMenu">
                 {menus?.map((d: MenuItemTypes, i: number) => {
                   return (
                     <Col key={i}>
@@ -98,7 +90,7 @@ export const Nav4 = ({
               </Row>
             </Col>
             {(searchable || auth) && (
-              <Col lg={6} sm={0} md={0} xs={0}>
+              <Col lg={6} sm={0} md={0} xs={0} className="lg:flex hidden justify-end items-center">
                 <Space size={"middle"} style={{ float: "right" }}>
                   {searchable && <SearchBar />}
                   {auth && <LoginHandler />}
@@ -125,11 +117,16 @@ export const Nav4 = ({
           closable={false}
           title={
             <div className="flex justify-between items-center p-4">
-              <a href="/">
-                <Image preview={false} src={logo || defaultLogo} width={70} alt="logo" />
-              </a>
+              <Col lg={3} xs={0}>
+              <Logo withText />
+            </Col>
+            <Col lg={0} xs={6} sm={5} md={4}>
+              <Logo />
+            </Col>
+              <Col>
               {searchable && <SearchBar small half />}
               <UpOutlined className="cursor-pointer" onClick={menuSwitch} />
+              </Col>
             </div>
           }
         >
@@ -150,9 +147,11 @@ export const Nav4 = ({
         </Drawer>
         {hasBanner ? (
           <div>
-            
+            <Header2 tabFilter={tabFilter} {...bannerData} />
           </div>):
-          <div style={{height:!hasBanner ? 75 : 0}}></div>
+          <div style={{height:!hasBanner ? 75 : 0}}>
+
+          </div>
       }
       </>
     );

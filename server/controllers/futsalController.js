@@ -27,7 +27,7 @@ export const getFutsals = async (req, res) => {
       res.status(500).send({
         success: false,
         error,
-        message: "Error while getting futsal list",
+        message: "Error while getting futsal detail",
       });
     }
   };

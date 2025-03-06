@@ -23,6 +23,7 @@ import Error from "../views/Public/Error";
 import FutsalDetailPage from "../views/Public/FutsalDetailPage";
 import MyBookings from "../components/MyBookings/MyBookings";
 import BookingPage from "../views/Public/BookingPage";
+import BookingList from "../views/DashBoard/Admin/Bookings/BookingList";
 
 const user = localUser()
 
@@ -113,8 +114,14 @@ return[
         ]
       },
       {
-        path: "bookings",
-        element: <MyBookings />
+        path: "dashboard/bookings",
+        element: <Outlet />,
+        children:[
+          {
+            path: "",
+            element: <BookingList />
+          },
+        ]
       },
     ]
   } else {

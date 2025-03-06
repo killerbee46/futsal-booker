@@ -7,6 +7,7 @@ import authRoutes from "./routes/authRoute.js";
 import futsalRoutes from "./routes/futsalRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
+import bookingRoutes from "./routes/bookingRoutes.js";
 import cors from "cors";
 import { fileURLToPath } from 'url';
 import path from "path";
@@ -39,6 +40,7 @@ app.use("/api", apiRoutes);
 app.use("/auth", authRoutes);
 app.use("/api/futsal", futsalRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/booking", bookingRoutes);
 app.use("/upload", uploadRoutes)
 
 //PORT

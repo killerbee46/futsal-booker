@@ -24,6 +24,8 @@ export interface NavbarPropsTypes {
   data: NavbarDataTypes;
   backgroundColor?: string;
   transparent?: boolean;
+  bannerData?:{};
+  tabFilter?:boolean
 }
 
 export interface Tsocials {

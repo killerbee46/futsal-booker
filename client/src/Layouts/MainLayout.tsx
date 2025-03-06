@@ -1,21 +1,29 @@
 import { Affix } from "antd";
-import React from "react";
 import Footer from "../components/NavBar/Footer";
 import Layout, { Content } from "antd/es/layout/layout";
-import NavBar from '../components/NavBar/NavBar';
-import Nav1 from "../user-side/navbar/NAV1/Nav1";
-import Nav2 from "../user-side/navbar/Nav2/Nav2";
+import Nav4 from "../user-side/navbar/Nav4/Nav4";
+import { colors } from "../themes/colors";
 
 const MainLayout = (props: any) => {
-  document.title = (props?.title ? (props?.title + " | "):"")+"Futsal Online"
+  const { title, bannerData, tabFilter } = props
+  document.title = (title ? (title + " | ") : "") + "Futsal Online"
   return (
     <div>
       <Content>
         <Layout>
-          <Affix offsetTop={0}>
-            <Nav2 menus={[{label:"hello", path:'test'}]} />
-            <NavBar />
-          </Affix>
+            <Nav4
+            tabFilter={tabFilter}
+            backgroundColor={colors.navBarBg} 
+            auth
+            bannerData={bannerData}
+            transparent={true}
+              data={{
+                menus: [
+                  { label: "Home", path: '/' },
+                  { label: "Futsals", path: '/futsals' },
+                  { label: "Booking", path: '/bookings' },
+                ],
+              }} />
           <div>
             {props.children}
           </div>

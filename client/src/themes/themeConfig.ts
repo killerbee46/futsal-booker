@@ -3,7 +3,7 @@ import { colors } from "./colors";
 
 export const themeConfig:ThemeConfig = {
     token:{
-        
+        colorPrimary:'#0C4F06',
     },
     components:{
         Table:{
@@ -16,6 +16,12 @@ export const themeConfig:ThemeConfig = {
         Tabs:{
         },
         Button:{
-        }
+            primaryColor:'white',
+            colorPrimaryBg:'#357960 !important',
+            colorBorder:'white'
+        },
+        Rate: {
+            starColor:'#FFAD33'
+          },
     }
 }

@@ -11,12 +11,12 @@ const Futsals = () => {
   const futsals = data?.data?.futsals
   console.log(futsals)
   return (
-    <MainLayout >
+    <MainLayout tabFilter>
         <Container>
         <Row gutter={[30, 30]}>
           {
             futsals?.map((f)=> {
-              return <Col lg={4}>
+              return <Col lg={6}>
               <FutsalCard {...f} />
               </Col>
             })
