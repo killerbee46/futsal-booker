@@ -1,14 +1,16 @@
-import React from 'react'
-import DashboardLayout from '../../../../Layouts/DashboardLayout'
+
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { deleteFutsal, getFutsals } from '../../../../api/FutsalApi'
 import { Table, Typography, message } from 'antd'
 import { SettingOutlined } from '@ant-design/icons'
-import TableAction from '../../../../components/TableAction/TableAction'
-import AdminModuleLayout from '../../../../Layouts/AdminModuleLayout'
+import { deleteFutsal, getFutsals, getFutsalsByOwner } from '../../../api/FutsalApi'
+import TableAction from '../../../components/TableAction/TableAction'
+import AdminModuleLayout from '../../../Layouts/AdminModuleLayout'
+import DashboardLayout from '../../../Layouts/DashboardLayout'
+import { localUser } from '../../../api/AuthApi'
 
-const FutsalList = () => {
-  const {data, refetch} = useQuery({queryKey:['futsals'],queryFn:getFutsals})
+const FutsalOwnerControlPage = () => {
+    const user = localUser()
+  const {data, refetch} = useQuery({queryKey:['my-futsals',{owner:user?._id}],queryFn:getFutsalsByOwner})
   const {mutate:futsalDelete, isSuccess:deleted} = useMutation({
     mutationFn:deleteFutsal,
     onSuccess:(res:any)=>{
@@ -18,7 +20,7 @@ const FutsalList = () => {
       }
     }
   })
-
+  
   const futsals = data?.data?.futsals
   const columns = [
     {
@@ -32,12 +34,6 @@ const FutsalList = () => {
       dataIndex:'name',
       key:'name',
       render:(name,row,i)=><Typography.Link href={`futsals/${row?._id}/edit`}>{name}</Typography.Link>
-    },
-    {
-      title:"Owner",
-      dataIndex:'owner',
-      key:'owner',
-      render:(name,row,i)=><Typography.Link href={`futsals/${row?._id}/edit`}>{name?.name}</Typography.Link>
     },
     {
       title:"Location",
@@ -65,11 +61,11 @@ const FutsalList = () => {
   ]
   return (
     <DashboardLayout title={"Futsals"}>
-      <AdminModuleLayout module={'futsal'}>
+      <AdminModuleLayout module={'my futsals'}>
       <Table dataSource={futsals} columns={columns} pagination={{hideOnSinglePage:true}} />
       </AdminModuleLayout>
     </DashboardLayout>
   )
 }
 
-export default FutsalList
+export default FutsalOwnerControlPage

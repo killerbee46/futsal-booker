@@ -9,7 +9,6 @@ export const NavBanner = ({ title, description, image = defaultImg }: any) => {
   const location = window.location?.pathname;
   const pathnames = location?.split('/');
   const page = pathnames[pathnames?.length - 1];
-  console.log(location, pathnames, page);
 
   return (
     <MainContainer

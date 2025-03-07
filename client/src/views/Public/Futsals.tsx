@@ -9,7 +9,6 @@ import { getFutsals } from '../../api/FutsalApi'
 const Futsals = () => {
   const {data, refetch} = useQuery({queryKey:['futsals'],queryFn:getFutsals})
   const futsals = data?.data?.futsals
-  console.log(futsals)
   return (
     <MainLayout tabFilter>
         <Container>

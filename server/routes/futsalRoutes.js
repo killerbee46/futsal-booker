@@ -1,9 +1,10 @@
 import express from "express";
-import { createFutsal, deleteFutsal, getFutsal, getFutsals, updateFutsal } from "../controllers/futsalController.js";
+import { createFutsal, deleteFutsal, getFutsal, getFutsals, getFutsalsByOwner, updateFutsal } from "../controllers/futsalController.js";
 
 const router = express.Router();
 
 router.get("/", getFutsals);
+router.get("/owner", getFutsalsByOwner);
 router.post("/create", createFutsal);
 router.get("/:id", getFutsal);
 router.put("/update/:id", updateFutsal);

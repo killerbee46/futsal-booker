@@ -23,8 +23,8 @@ const FutsalSchema = new mongoose.Schema(
       type: String,
     },
     owner: {
-      type: Number,
-      required: false,
+      type: mongoose.ObjectId,
+      ref: "Users",
     },
     // teamId: {
     //   type: Number,

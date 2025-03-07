@@ -39,7 +39,10 @@ export const filteredDashMenu = () => {
                         label:"Dashboard",key:"dashboard",icon:<DashboardOutlined />
                     },
                     {
-                        label:"My Futsal",key:"dashboard/my-futsal",icon:<ClockCircleOutlined />
+                        label:"My Futsals",key:"dashboard/my-futsals",icon:<ClockCircleOutlined />
+                    },
+                    {
+                        label:"Bookings",key:"dashboard/my-futsal-bookings",icon:<UnorderedListOutlined />
                     },
                 ]
                 case 3:
@@ -66,7 +69,7 @@ const DashboardMenus = () => {
     const navigate = useNavigate()
     // const currentMenu = window.location.pathname.slice(1)
     const [currentMenu, setCurrentMenu] = useState('dashboard')
-    const onMenuClick = (e) => {
+    const onMenuClick = (e:any) => {
         navigate(`/${e.key}`)
         setCurrentMenu(e.key)
       }

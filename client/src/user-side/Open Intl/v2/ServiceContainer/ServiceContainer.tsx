@@ -6,7 +6,6 @@ import ServiceCard from '../ServiceCard/ServiceCard'
 
 const ServiceContainer = ({data, image, sectionTitle}:any) => {
     const primaryLimit:number = Math.floor(data?.length / 2 <= 2 ? data?.length / 2 : 4)
-    console.log(primaryLimit, "primary length")
     const primary = data?.slice(0,primaryLimit*2)
     const bottom = data?.slice(primary*2+1,-1)
   return (

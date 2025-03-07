@@ -17,9 +17,11 @@ export const getBookingsByFutsal = (data: any) => {
 };
 
 export const getBookingsByUser = (data: any) => {
+  const query = data?.queryKey[1]
   return API({
     method: "GET",
-    url: "/booking",
+    url: "/booking/user",
+    params:{booker:query?.user, status:query?.status || ""}
   });
 };
 

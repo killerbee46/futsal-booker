@@ -2,7 +2,7 @@ import Futsal from "../models/Futsal.js";
 
 export const getFutsals = async (req, res) => {
     try {
-      const futsals = await Futsal.find({});
+      const futsals = await Futsal.find({})?.populate('owner');
       res.status(200).send({
         futsals
       });
@@ -18,7 +18,7 @@ export const getFutsals = async (req, res) => {
 
   export const getFutsal = async (req, res) => {
     try {
-      const futsal = await Futsal.findById(req.params.id);
+      const futsal = await Futsal.findById(req.params.id)?.populate('owner');
       res.status(200).send({
         futsal
       });
@@ -32,9 +32,25 @@ export const getFutsals = async (req, res) => {
     }
   };
 
+  export const getFutsalsByOwner = async (req, res) => {
+    try {
+      const futsals = await Futsal.find({owner:{$eq:req?.query?.owner}});
+      res.status(200).send({
+        futsals
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        error,
+        message: "Error while getting futsal list",
+      });
+    }
+  };
+
 export const createFutsal = async (req, res) => {
     try {
-      const { name, location, google_map_location_string, phone, image } = req.body;
+      const { name, location, google_map_location_string, phone, image, owner } = req.body;
       //validations
       if (!name) {
         return res.send({ error: "Name is Required" });
@@ -64,7 +80,8 @@ export const createFutsal = async (req, res) => {
         location,
         phone,
         google_map_location_string,
-        image
+        image, 
+        owner
       }).save();
   
       res.status(201).send({
@@ -84,7 +101,7 @@ export const createFutsal = async (req, res) => {
 
   export const updateFutsal = async (req, res) => {
     try {
-      const { name, location, google_map_location_string, phone, image } = req.body;
+      const { name, location, google_map_location_string, phone, image, owner } = req.body;
       //validations
       if (!name) {
         return res.send({ error: "Name is Required" });
@@ -114,7 +131,8 @@ export const createFutsal = async (req, res) => {
         location,
         phone,
         google_map_location_string,  
-        image
+        image, 
+        owner
       })
       await futsal.save();
   

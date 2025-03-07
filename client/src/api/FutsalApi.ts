@@ -14,6 +14,14 @@ export const getFutsal = (data: any) => {
   });
 };
 
+export const getFutsalsByOwner = (data: any) => {
+  return API({
+    method: "GET",
+    url: `/futsal/owner`,
+    params:data?.queryKey[1]
+  });
+};
+
 export const createFutsal = (data: any) => {
   return API({
     method: "POST",

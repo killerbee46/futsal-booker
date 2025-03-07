@@ -21,34 +21,30 @@ import UserDetail from "../views/DashBoard/Admin/Users/UserDetail";
 import EditUser from "../views/DashBoard/Admin/Users/EditUser";
 import Error from "../views/Public/Error";
 import FutsalDetailPage from "../views/Public/FutsalDetailPage";
-import MyBookings from "../components/MyBookings/MyBookings";
 import BookingPage from "../views/Public/BookingPage";
 import BookingList from "../views/DashBoard/Admin/Bookings/BookingList";
+import MyBookingsPage from "../views/Public/MyBookingsPage";
+import FutsalOwnerControlPage from "../views/DashBoard/FutsalOwner/FutsalOwnerControlPage";
+import FutsalOwnerBookingControlPage from "../views/DashBoard/FutsalOwner/FutsalOwnerBookingControlPage";
 
 const user = localUser()
 
 const dashboardRoutes = () => {
   if (user?.role === 1) {
-    return [
-      {
-        path: "bookings",
-        element: <MyBookings />
-      },
-    ]
+    return []
   } else if (user?.role === 2) {
 return[
   {
     path: "dashboard",
     element: <DashBoardPage />
   },
-  
   {
-    path: "dashboard/booking",
-    element: <DashBoardPage />
+    path: "dashboard/my-futsals",
+    element: <FutsalOwnerControlPage />
   },
   {
-    path: "bookings",
-    element: <MyBookings />
+    path: "dashboard/my-futsal-bookings",
+    element: <FutsalOwnerBookingControlPage />
   },
 ]
   } else if (user?.role === 3) {
@@ -132,6 +128,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/bookings",
+    element: <MyBookingsPage />,
   },
   {
     path: "futsals",

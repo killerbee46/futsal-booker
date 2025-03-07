@@ -119,7 +119,6 @@ const Gallery1 = ({ data:nn, galleryTitle:m, galleryDesc:n }: GalleryDataTypes) 
   });
 
   const handleMediaViewerModal = ({ url, videoUrl, data, open }: any) => {
-    console.log(url, "clicked");
     if (url || videoUrl) {
       setMediaViewerModal({
         visible: true,
@@ -155,7 +154,6 @@ const Gallery1 = ({ data:nn, galleryTitle:m, galleryDesc:n }: GalleryDataTypes) 
       </Space>
       <Row gutter={[20, 30]}>
         {images?.map((dat: any, i: number) => {
-          console.log(dat, i, "restructured array");
           return (
             <Col span={dat?.two ? 12 : 8} key={i}>
               <Thumbnail

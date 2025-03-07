@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import {Button, Col, Flex, Form, Input, Row, Typography, message} from 'antd' 
+import {Button, Col, Flex, Form, Input, Row, Select, Typography, message} from 'antd' 
 import { useForm } from 'antd/es/form/Form'
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { createFutsal, getFutsal, updateFutsal } from '../../api/FutsalApi'
 import { useParams, useNavigate } from 'react-router-dom'
 import FileUpload from '../FileUpload/FileUpload'
+import { getUsersByRole } from '../../api/UserApis'
 
 const FutsalForm = ({update}:any) => {
   const [form] = useForm()
@@ -13,6 +14,14 @@ const FutsalForm = ({update}:any) => {
   const {data } = useQuery({
       queryKey:['futsal',id], queryFn:getFutsal
   })
+
+  const {data:users } = useQuery({
+    queryKey:['futsal',2], queryFn:getUsersByRole
+})
+
+const options = users?.data?.users?.map((u:any)=>({
+  label:u?.name, value:u?._id
+}))
 
   const futsal = data?.data?.futsal
 
@@ -52,6 +61,11 @@ form.setFieldsValue({
         <Col span={12}>
         <Form.Item label="Name of Futsal" name={'name'}>
         <Input />
+      </Form.Item>
+        </Col>
+        <Col span={12}>
+        <Form.Item label="Owner" name={'owner'}>
+        <Select placeholder={'Select Owner'} options={options} />
       </Form.Item>
         </Col>
         <Col span={12}>

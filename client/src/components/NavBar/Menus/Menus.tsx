@@ -45,7 +45,6 @@ const menuItems = [
     <div className='menu'>
       {
         menuItems?.map((menuItems:any)=> {
-          console.log(!!menuItems.hide)
           return <Link hidden={!!menuItems.hide} to={menuItems?.path} className='menuItems'>{menuItems?.title}</Link>
         })
       }

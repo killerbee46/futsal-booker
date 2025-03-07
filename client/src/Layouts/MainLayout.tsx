@@ -21,7 +21,7 @@ const MainLayout = (props: any) => {
                 menus: [
                   { label: "Home", path: '/' },
                   { label: "Futsals", path: '/futsals' },
-                  { label: "Booking", path: '/bookings' },
+                  { label: "My Bookings", path: '/bookings' },
                 ],
               }} />
           <div>

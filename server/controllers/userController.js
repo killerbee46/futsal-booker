@@ -2,8 +2,9 @@ import { hashPassword } from "../helpers/authHelper.js";
 import userModel from "../models/userModel.js"
 
 export const getUsers = async (req, res) => {
+  const roleFilter = req?.query?.role ? {role:{$eq:req?.query?.role}} : {}
     try {
-      const users = await userModel.find().select('-password');
+      const users = await userModel.find(roleFilter).select('-password');
       res.status(200).send({
         users
       });

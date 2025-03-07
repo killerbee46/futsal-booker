@@ -41,7 +41,6 @@ const MediaViewerCarousel = ({ data, defaultOpen }: CarouselTypes) => {
   }
   const Content = ({ data, showTitle, active  }: { data: any, showTitle?:boolean, active?:boolean}) => {
     const isVideo = data?.mediaType === 'video'
-    console.log(data,isVideo, data?.video !== "", "has video")
     return (
       <div className="relative -mt-16 aspect-[7/3] overflow-hidden">
         { isVideo && data?.video !== "" && <ReactPlayer playing={false} className="mt-10" controls width={'100%'} url={data?.video} /> }

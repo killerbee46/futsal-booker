@@ -14,7 +14,6 @@ const UserDetail = () => {
         queryKey:['user',id], queryFn:getUser
     })
 
-    console.log(data)
     const user = (data?.data?.user)
   return (
     <DashboardLayout title={"User Details"}>

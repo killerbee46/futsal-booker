@@ -1,11 +1,12 @@
 import express from "express";
-import { addBooking, getBookingByFutsal, getBookings } from "../controllers/bookingController.js";
+import { addBooking, getBookingByFutsal, getBookingByUser, getBookings } from "../controllers/bookingController.js";
 
 const router = express.Router();
 
 router.get("/", getBookings);
 router.post("/add", addBooking);
 router.get("/futsal", getBookingByFutsal);
+router.get("/user", getBookingByUser);
 // router.get("/:userId", getBookingByUser);
 // router.put("/update/:id", updateFutsal);
 // router.post("/delete/:id", deleteFutsal);

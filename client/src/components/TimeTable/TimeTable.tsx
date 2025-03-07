@@ -22,7 +22,7 @@ export const time = [
     {key:14,start:"7:00 PM", end:"8:00 PM"},
 ]
 
-const TimeTable = ({futsal}:any) => {
+const TimeTable = ({futsal, owner}:any) => {
     const {data, refetch} = useQuery({
         queryKey:['bbf',{date:futsal?.date, id:futsal?._id}],
         queryFn:getBookingsByFutsal
@@ -38,7 +38,7 @@ const TimeTable = ({futsal}:any) => {
                     const bookedTimes = bookings?.map((d:any)=> d?.time)
                     return <Col key={i} lg={6} style={{border:'1px solid gray'}}>
                     <Flex align='center' justify='center' style={{padding:'20px 20px'}}>
-                        <BookingConfirmationModal refetch={refetch} data={{...t, futsal:futsal, booked:bookedTimes?.includes(t?.key)}} />
+                        <BookingConfirmationModal owner={owner} refetch={refetch} data={{...t, futsal:futsal, booked:bookedTimes?.includes(t?.key)}} />
                     </Flex>
             </Col>
                 })

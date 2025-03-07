@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 import { useMutation } from '@tanstack/react-query'
 import { addBooking } from '../../api/BookingApi'
 
-const BookingConfirmationModal = ({ data, refetch }: any) => {
+const BookingConfirmationModal = ({ data, refetch, owner }: any) => {
     const [bookingModal, setBookingModal] = useState(false)
     const {mutate:bookFutsal, isPending:loading, error} = useMutation({
         mutationFn:addBooking,
@@ -37,31 +37,41 @@ const BookingConfirmationModal = ({ data, refetch }: any) => {
     const date = searchParams.get('date')
 const token = getToken()
 const user = localUser()
-    const onConfirm = () => {
+    const onConfirm = (values:any) => {
         const formData = {
+            ...values,
             booker: user?._id,
-            futsal:id,
+            futsal:id || data?.futsal?._id,
             date:date,
             time:data?.key,
             rate:data?.futsal?.rate || "1000"
         }
-        
         if (token && token !== "") {
             bookFutsal(formData)
         } else {
             const ref = window?.location?.href
-            console.log(`/login?ref=${ref}`, "reference")
+            navigate(`/login?ref=${ref}`)
         }
     }
     return (
         <div>
             <Button disabled={data?.booked} onClick={modalSwitch} className={`button ${!data?.booked ? 'success' : 'danger'}`}>{data?.start} - {data?.end}</Button>
             <Modal onCancel={() => setBookingModal(false)} title="Booking Details" open={bookingModal} footer={null}>
-                <Form layout='vertical'>
+                <Form layout='vertical' onFinish={onConfirm}>
                     <Row className='my-4' gutter={20}>
                         <Col span={24}>
                             <Form.Item label="Futsal Name">
                                 <Input disabled value={data?.futsal?.name} />
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item label="Name" name='name'>
+                                <Input value={date || dayjs()?.format("YYYY-MM-DD")} />
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item label="Contact" name="contact">
+                                <Input value={date || dayjs()?.format("YYYY-MM-DD")} />
                             </Form.Item>
                         </Col>
                         <Col span={12}>
@@ -76,7 +86,7 @@ const user = localUser()
                         </Col>
                         <Col span={24}>
                             <Flex gap={20}>
-                                <Button loading={loading} className='button success' onClick={onConfirm}>Confirm</Button>
+                                <Button loading={loading} className='button success' htmlType='submit'>Confirm</Button>
                                 <Button disabled={loading} className='button danger' onClick={modalSwitch}>Cancel</Button>
                             </Flex>
                         </Col>

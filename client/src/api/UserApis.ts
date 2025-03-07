@@ -39,3 +39,11 @@ export const deleteUser = (data: any) => {
     url: `/user/delete/${data}`,
   });
 };
+
+export const getUsersByRole = (data: any) => {
+  return API({
+    method: "GET",
+    url: "/user",
+    params:{role:data?.queryKey[1]}
+  });
+};

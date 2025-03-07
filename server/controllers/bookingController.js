@@ -34,25 +34,31 @@ export const getBookings = async (req, res) => {
     }
   };
 
-//   export const getFutsal = async (req, res) => {
-//     try {
-//       const futsal = await Futsal.findById(req.params.id);
-//       res.status(200).send({
-//         futsal
-//       });
-//     } catch (error) {
-//       console.log(error);
-//       res.status(500).send({
-//         success: false,
-//         error,
-//         message: "Error while getting futsal detail",
-//       });
-//     }
-//   };
+  export const getBookingByUser = async (req, res) => {
+    try {
+      const booking = await Booking.find({
+        booker:{$eq:req?.query?.booker},
+        status:{$regex:req?.query?.status
+          
+        }})?.populate("futsal").lean();
+      res.status(200).send({
+        success: true,
+        message: "Bookings Loaded",
+        booking,
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        error,
+        message: "Error while getting booking detail",
+      });
+    }
+  };
 
 export const addBooking = async (req, res) => {
     try {
-      const { date, time, booker, futsal, rate } = req.body;
+      const { date, time, booker, futsal, rate, name, contact } = req.body;
       //validations
       if (!booker) {
         return res.status(400).send({ error: "Booker detail is Required" });
@@ -82,7 +88,9 @@ export const addBooking = async (req, res) => {
         time,
         booker,
         futsal,
-        rate
+        rate,
+        name, 
+        contact
       }).save();
   
       res.status(201).send({
