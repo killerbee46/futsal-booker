@@ -39,7 +39,7 @@ export const filteredDashMenu = () => {
                         label:"Dashboard",key:"dashboard",icon:<DashboardOutlined />
                     },
                     {
-                        label:"My Futsals",key:"dashboard/my-futsals",icon:<ClockCircleOutlined />
+                        label:"My Futsals",key:"dashboard/futsals",icon:<ClockCircleOutlined />
                     },
                     {
                         label:"Bookings",key:"dashboard/my-futsal-bookings",icon:<UnorderedListOutlined />

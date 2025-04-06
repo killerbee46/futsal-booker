@@ -8,4 +8,8 @@ export interface Header_types {
   breadcrumbs?: ReactNode;
   details?:TDetails[];
   tabFilter?:boolean;
+  button?: {
+    label:string;
+    path?:string
+  }
 }

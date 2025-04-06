@@ -6,7 +6,7 @@ import Text from "antd/es/typography/Text";
 import Link from "antd/es/typography/Link";
 import Paragraph from "antd/es/typography/Paragraph";
 import { Columns, Footer_Types, Links } from "../Footer_Types";
-import MainContainer from "@/components/Maincontainer/Maincontainer";
+import MainContainer from "../../Maincontainer/Maincontainer";
 
 export const Footer1 = ({ logo, columns, copyright }: Footer_Types) => {
   return (
@@ -20,13 +20,14 @@ export const Footer1 = ({ logo, columns, copyright }: Footer_Types) => {
           >
             <Image
               className="aspect-square object-cover rounded-full"
-              src={logo.image}
+              src={logo?.image}
               width={100}
               alt="Beeaver Tech"
+              preview={false}
             />
-            {logo.description ? (
+            {logo?.description ? (
               <Paragraph className="text-center md:text-left">
-                {logo.description}
+                {logo?.description}
               </Paragraph>
             ) : (
               ""
@@ -43,7 +44,7 @@ export const Footer1 = ({ logo, columns, copyright }: Footer_Types) => {
           className="flex flex-col items-center"
         >
           <Flex className="flex-col md:flex-row md:justify-between gap-[40px] md:w-full">
-            {columns.map((column: Columns, index: number) => (
+            {columns?.map((column: Columns, index: number) => (
               <Space direction="vertical" size={8} key={index}>
                 <Text className="text-[16px] font-medium">{column.title}</Text>
                 <div className="w-[60px] h-[2px] bg-black"></div>
@@ -87,7 +88,7 @@ export const Footer1 = ({ logo, columns, copyright }: Footer_Types) => {
               <Text>{copyright.copyright_text}</Text>
             </Space>
             <Space className="font-medium gap-[10px] sm:gap-[20px]">
-              {copyright.links.map((item: any, index: number) => (
+              {copyright?.links?.map((item: any, index: number) => (
                 <Link key={index} href={item.href}>
                   <Text>{item.title}</Text>
                 </Link>

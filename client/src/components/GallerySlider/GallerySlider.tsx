@@ -22,7 +22,7 @@ function GallerySlider({images}:any) {
                 vertical={true}
                 arrows={false}
                 asNavFor={nav1}
-                ref={slider => (sliderRef2 = slider)}
+                ref={(slider:any) => (sliderRef2 = slider)}
                 slidesToShow={4}
                 swipeToSlide={true}
                 focusOnSelect={true}
@@ -39,7 +39,7 @@ function GallerySlider({images}:any) {
             </Slider>
                 </Col>
                 <Col span={18}>
-                <Slider arrows={false} asNavFor={nav2} ref={slider => (sliderRef1 = slider)}>
+                <Slider arrows={false} asNavFor={nav2} ref={(slider:any) => (sliderRef1 = slider)}>
                 {
                     images && images?.length !== 0 &&
                     images?.map((img:any, i:number)=> (

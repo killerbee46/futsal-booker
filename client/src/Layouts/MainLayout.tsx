@@ -1,14 +1,20 @@
 import { Affix } from "antd";
-import Footer from "../components/NavBar/Footer";
-import Layout, { Content } from "antd/es/layout/layout";
+import Layout, { Content, Footer } from "antd/es/layout/layout";
 import Nav4 from "../user-side/navbar/Nav4/Nav4";
 import { colors } from "../themes/colors";
+import MyFooter from "../components/Footer/Footer";
+
+export const menus=  [
+  { label: "Home", path: '/' },
+  { label: "Futsals", path: '/futsals' },
+  { label: "My Bookings", path: '/bookings' },
+]
 
 const MainLayout = (props: any) => {
   const { title, bannerData, tabFilter } = props
   document.title = (title ? (title + " | ") : "") + "Futsal Online"
   return (
-    <div>
+    <div className="relative">
       <Content>
         <Layout>
             <Nav4
@@ -18,18 +24,16 @@ const MainLayout = (props: any) => {
             bannerData={bannerData}
             transparent={true}
               data={{
-                menus: [
-                  { label: "Home", path: '/' },
-                  { label: "Futsals", path: '/futsals' },
-                  { label: "My Bookings", path: '/bookings' },
-                ],
+                menus:menus,
               }} />
           <div>
             {props.children}
           </div>
-          <Footer />
         </Layout>
       </Content>
+          <Footer className="w-full !p-0">
+          <MyFooter /> 
+          </Footer>
     </div>
   );
 };

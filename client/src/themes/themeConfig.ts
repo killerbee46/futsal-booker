@@ -17,7 +17,7 @@ export const themeConfig:ThemeConfig = {
         },
         Button:{
             primaryColor:'white',
-            colorPrimaryBg:'#357960 !important',
+            colorPrimaryBg:'#008000 !important',
             colorBorder:'white'
         },
         Rate: {

@@ -12,6 +12,9 @@ export type CarouselTypes = {
   nextIcon?: React.ReactNode;
   prevIcon?: React.ReactNode;
   defaultOpen?:number;
+  slides?:number;
+  scroll?:number;
+  content?:React.ReactNode || Element={};
 };
 
 export type CarouselDataTypes = {

@@ -2,7 +2,7 @@ import React from 'react'
 import DashboardLayout from '../../../../Layouts/DashboardLayout'
 import FutsalForm from '../../../../components/Forms/FutsalForm'
 
-const AddFutsal = () => {
+const AddFutsal = ({pwner}:any) => {
   return (
     <DashboardLayout title={"Add Futsal"}>
         <FutsalForm />

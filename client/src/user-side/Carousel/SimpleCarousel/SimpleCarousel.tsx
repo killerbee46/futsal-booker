@@ -4,9 +4,9 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import React, { useState } from "react";
 import Slider, { CustomArrowProps } from "react-slick";
 import { CarouselDataTypes, CarouselTypes } from "../Carousel.types";
-import getImageUrl from "../../../utilFunctions/getImageUrl";
+// import getImageUrl from "../../../utilFunctions/getImageUrl";
 
-export const SimpleCarousel = ({ data, dots }: CarouselTypes) => {
+export const SimpleCarousel = ({ data, dots, slides,scroll  }: CarouselTypes) => {
   const [current, setCurrent] = useState(0);
   function CustomNextArrow(props: CustomArrowProps) {
     const { onClick } = props;
@@ -32,7 +32,7 @@ export const SimpleCarousel = ({ data, dots }: CarouselTypes) => {
   const Content = ({data}:{data:CarouselDataTypes}) => {
     return <div className="relative aspect-[7/2]"
     style={{
-        background: `url(${getImageUrl(data?.image?.data?.attributes?.url)})`,
+        background: `url(${data?.image})`,
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -40,7 +40,7 @@ export const SimpleCarousel = ({ data, dots }: CarouselTypes) => {
     >
       <style>{`
       .slick-slider div{
-      padding:0px !important;
+      padding: 0px !important;
       }
       `}</style>
     {/* <Image
@@ -71,9 +71,10 @@ export const SimpleCarousel = ({ data, dots }: CarouselTypes) => {
     dots: dots,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: slides || 1,
+    adaptiveHeight:true,
     autoautoplay: true,
-    slidesToScroll: 1,
+    slidesToScroll: scroll || 1,
     pauseOnHover: true,
     swipeToSlide: true,
     nextArrow: <CustomNextArrow />,

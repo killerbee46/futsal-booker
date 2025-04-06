@@ -39,8 +39,32 @@ return[
     element: <DashBoardPage />
   },
   {
-    path: "dashboard/my-futsals",
-    element: <FutsalOwnerControlPage />
+    path: "dashboard/futsals",
+    element: <Outlet />,
+        children:[
+          {
+            path: "",
+            element: <FutsalOwnerControlPage />
+          },
+          {
+            path: "add",
+            element: <AddFutsal owner  />
+          },
+          {
+            path: ":id",
+            element: <Outlet />,
+            children:[
+              {
+                path: "",
+                element: <FutsalDetail />
+              },
+              {
+                path: "edit",
+                element: <EditFutsal />
+              },
+            ]
+          },
+        ]
   },
   {
     path: "dashboard/my-futsal-bookings",

@@ -14,8 +14,8 @@ const Futsals = () => {
         <Container>
         <Row gutter={[30, 30]}>
           {
-            futsals?.map((f)=> {
-              return <Col lg={6}>
+            futsals?.map((f:any, i:number)=> {
+              return <Col xl={6} xxl={4} md={8} sm={12} key={i}>
               <FutsalCard {...f} />
               </Col>
             })
