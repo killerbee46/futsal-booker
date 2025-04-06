@@ -4,6 +4,8 @@ export const getFutsals = async (req, res) => {
     try {
       const futsals = await Futsal.find({})?.populate('owner');
       res.status(200).send({
+        success:true,
+        message:"Futsals fetched successfully",
         futsals
       });
     } catch (error) {
@@ -12,6 +14,48 @@ export const getFutsals = async (req, res) => {
         success: false,
         error,
         message: "Error while getting futsal list",
+      });
+    }
+  };
+
+  export const getPopularFutsals = async (req, res) => {
+    try {
+      const futsals = await Futsal.aggregate([
+        {
+          $lookup: {
+            from: 'bookings',
+            localField: '_id',
+            foreignField: 'futsal',
+            as: 'bookings'
+          }
+        },
+        {
+          $addFields: {
+            bookingsCount: { $size: '$bookings' }
+          }
+        },
+        {
+          $sort: { bookingsCount: -1 },//Ascending
+        },
+        {
+          $limit:10
+        },
+        {
+          $project: {
+            bookings: 0 // Optional: remove the bookings array if not needed
+          }
+        }
+      ])
+
+      res.status(200).send({
+        futsals
+      });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        error,
+        message: "Error while getting popular futsal list",
       });
     }
   };
@@ -156,7 +200,7 @@ export const createFutsal = async (req, res) => {
       await Futsal.findByIdAndDelete(req.params.id);
       res.status(200).send({
         success: true,
-        message: "Product Deleted successfully",
+        message: "Futsal Deleted successfully",
       });
     } catch (error) {
       console.log(error);
