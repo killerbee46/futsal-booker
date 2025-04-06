@@ -5,7 +5,8 @@ import FutsalCard from '../FutsalCard/FutsalCard'
 import SectionTitle from '../SectionTitle/SectionTitle'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-const FutsalSlider = () => {
+const FutsalSlider = ({data}:any) => {
+    console.log(data)
     function CustomNextArrow(props: CustomArrowProps) {
         const { onClick } = props;
         return (
@@ -66,9 +67,9 @@ const FutsalSlider = () => {
             <SectionTitle subTitle="Popular Futsals" />
             <Slider {...settings} >
                 {
-                    Array(10)?.fill(null)?.map(() => (
-                        <div className='!p-3'>
-                            <FutsalCard />
+                    data?.map((d:any, i:number) => (
+                        <div key={i} className='!p-3'>
+                            <FutsalCard {...d} />
                         </div>
                     ))
                 }

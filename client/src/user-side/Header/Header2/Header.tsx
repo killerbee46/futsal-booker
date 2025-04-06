@@ -22,12 +22,12 @@ export const Header2 = ({ title,description, image=defaultImage, tabFilter, butt
       <Flex className={`flex-col pt-[10%] pb-[5%] justify-end md:justify-center items-start w-full relative ${ (title || description) ? 'aspect-[7/5] md:aspect-[7/3]' :  'aspect-[7/4] md:aspect-[7/2]'}`}>
         <Title
           level={5}
-          className="md:!text-3xl lg:!text-5xl !text-semibold !text-white uppercase"
+          className="!text-xl md:!text-4xl lg:!text-4xl !text-semibold !text-white uppercase"
         >
           {title}
         </Title>
         <Paragraph
-          className="!text-bold !text-white uppercase w-full md:w-3/4 "
+          className="text-sm md:!text-md lg:!text-xl !text-bold !text-white uppercase w-full md:w-3/4 "
         >
           {description}
         </Paragraph>

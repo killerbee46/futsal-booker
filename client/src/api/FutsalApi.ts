@@ -22,6 +22,13 @@ export const getFutsalsByOwner = (data: any) => {
   });
 };
 
+export const getPopularFutsals = (data: any) => {
+  return API({
+    method: "GET",
+    url: "/futsal/popular",
+  });
+};
+
 export const createFutsal = (data: any) => {
   return API({
     method: "POST",

@@ -1,4 +1,4 @@
-import { Button, Col, Flex, Row } from 'antd'
+import { Button, Col, Flex, Row, Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import BookingConfirmationModal from '../BookingConfirmationModal/BookingConfirmationModal'
 import { useParams, useSearchParams } from 'react-router-dom'
@@ -23,7 +23,7 @@ export const time = [
 ]
 
 const TimeTable = ({futsal, owner}:any) => {
-    const {data, refetch} = useQuery({
+    const {data, refetch, isFetching:loading} = useQuery({
         queryKey:['bbf',{date:futsal?.date, id:futsal?._id}],
         queryFn:getBookingsByFutsal
         
@@ -32,18 +32,25 @@ const TimeTable = ({futsal, owner}:any) => {
     const bookings = data?.data?.booking
   return (
     <div>
-        <Row>
-            {
-                time.map((t:any, i:number)=>{
-                    const bookedTimes = bookings?.map((d:any)=> d?.time)
-                    return <Col key={i} lg={6} style={{border:'1px solid gray'}}>
-                    <Flex align='center' justify='center' style={{padding:'20px 20px'}}>
-                        <BookingConfirmationModal owner={owner} refetch={refetch} data={{...t, futsal:futsal, booked:bookedTimes?.includes(t?.key)}} />
-                    </Flex>
-            </Col>
-                })
-            }
-        </Row>
+        {
+            loading ?
+            <div className='w-full h-32 flex flex-col justify-center items-center'>
+            <Spin />
+            Loading... 
+          </div> :
+      <Row>
+          {
+              time.map((t:any, i:number)=>{
+                  const bookedTimes = bookings?.map((d:any)=> d?.time)
+                  return <Col key={i} lg={6} style={{border:'1px solid gray'}}>
+                  <Flex align='center' justify='center' style={{padding:'20px 20px'}}>
+                      <BookingConfirmationModal owner={owner} refetch={refetch} data={{...t, futsal:futsal, booked:bookedTimes?.includes(t?.key)}} />
+                  </Flex>
+          </Col>
+              })
+          }
+      </Row>
+        }
     </div>
   )
 }

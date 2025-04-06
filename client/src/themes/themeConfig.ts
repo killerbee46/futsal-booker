@@ -11,7 +11,7 @@ export const themeConfig:ThemeConfig = {
         Card:{
             headerBg:colors.primaryColor,
             colorTextHeading:"white",
-            boxShadow:"rgba(0, 0, 0, 0.24) 0px 3px 8px"
+            boxShadow:"rgba(0, 0, 0, 0.24) 0px 3px 8px",
         },
         Tabs:{
         },
