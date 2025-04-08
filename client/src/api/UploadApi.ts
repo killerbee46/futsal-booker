@@ -8,6 +8,14 @@ export const uploadFile = (data: any) => {
     });
   };
 
+  export const uploadMultiFile = (data: any) => {
+    return MediaApis({
+      method: "POST",
+      data: data,
+      url: "/upload/multi",
+    });
+  };
+
   export const getFile = (data: any) => {
     return API({
       method: "GET",

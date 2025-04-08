@@ -58,7 +58,7 @@ const UserForm = ({update}:any) => {
           <Typography.Title level={4}>{"Add User"}</Typography.Title>
         }
     <Form form={form} onFinish={onFinish} layout='vertical'>
-      <FileUpload loading={false} defaultImage='' name='image' form={form} />
+      <FileUpload loading={false} defaultImage={user?.image} name='image' form={form} />
       <Row gutter={30}>
         <Col span={12}>
         <Form.Item label="Full Name" name={'name'}>

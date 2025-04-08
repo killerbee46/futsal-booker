@@ -17,14 +17,15 @@ const FutsalDetailPage = () => {
   })
 
   const futsal = (data?.data?.futsal)
+  const images = (futsal?.image ? [futsal?.image] : []).concat(futsal?.images || [])
   const noImage = 'https://imgs.search.brave.com/N3WfNHpXhtxnxMSKIw3htA1ksVdZ6hWK2h3hooHrwvk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAxNS8w/Ny8wNS8xMC8xOC90/cmVlLTgzMjA3OV82/NDAuanBn'
   return (
     <MainLayout >
       <Container>
         <Row gutter={30} className='my-6' align={'middle'}>
           <Col lg={12}>
-            <GallerySlider images={Array(5)?.fill(null)?.map(() => ({
-              image: futsal?.image ? getImage(futsal?.image) : noImage
+            <GallerySlider images={images?.map((img:String) => ({
+              image: futsal?.image ? getImage(img) : noImage
             }))} />
           </Col>
           <Col lg={12}>

@@ -94,7 +94,7 @@ export const getFutsals = async (req, res) => {
 
 export const createFutsal = async (req, res) => {
     try {
-      const { name, location, google_map_location_string, phone, image, owner } = req.body;
+      const { name, location, google_map_location_string, phone, image, owner, images } = req.body;
       //validations
       if (!name) {
         return res.send({ error: "Name is Required" });
@@ -125,7 +125,8 @@ export const createFutsal = async (req, res) => {
         phone,
         google_map_location_string,
         image, 
-        owner
+        owner,
+        images
       }).save();
   
       res.status(201).send({
@@ -145,7 +146,7 @@ export const createFutsal = async (req, res) => {
 
   export const updateFutsal = async (req, res) => {
     try {
-      const { name, location, google_map_location_string, phone, image, owner } = req.body;
+      const { name, location, google_map_location_string, phone, image, owner, images } = req.body;
       //validations
       if (!name) {
         return res.send({ error: "Name is Required" });
@@ -176,7 +177,8 @@ export const createFutsal = async (req, res) => {
         phone,
         google_map_location_string,  
         image, 
-        owner
+        owner,
+        images
       })
       await futsal.save();
   

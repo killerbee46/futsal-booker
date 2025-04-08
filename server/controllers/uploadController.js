@@ -18,9 +18,9 @@ export const uploadFile = async (req, res,) => {
 }
 
 export const uploadMultiFile = async (req, res,) => {
-  const image = req.file.filename;
+  // const images = req.file.filename;
  return res.status(201).json({
           message:"Image uploaded successfully!",
-          url:image
+          images:"got images"
          })
 }

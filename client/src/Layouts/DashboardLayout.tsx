@@ -17,14 +17,16 @@ const DashboardLayout= (props: any) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      <Sider className='sticky top-0 left-0 bottom-0 h-[100vh] overflow-hidden' collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="demo-logo-vertical" style={{ padding: 20 }}>
           <Logo withText={!collapsed} width="100%" />
         </div>
+        <div className='overflow-y-auto'> 
         <DashboardMenus />
+        </div>
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header className='sticky top-0 z-20' style={{ padding: 0, background: colorBgContainer }} />
         <Content style={{ margin: '20px 16px' }}>
           <div
             style={{

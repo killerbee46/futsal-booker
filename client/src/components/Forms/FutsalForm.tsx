@@ -6,6 +6,7 @@ import { createFutsal, getFutsal, updateFutsal } from '../../api/FutsalApi'
 import { useParams, useNavigate } from 'react-router-dom'
 import FileUpload from '../FileUpload/FileUpload'
 import { getUsersByRole } from '../../api/UserApis'
+import MultiFileUpload from '../FileUpload/MultiFileUpload'
 
 const FutsalForm = ({ update }: any) => {
   const [form] = useForm()
@@ -57,7 +58,10 @@ const FutsalForm = ({ update }: any) => {
         update ? futsal?.name : "Add Futsal"
       }</Typography.Title>
       <Form form={form} onFinish={onFinish} layout='vertical'>
-        <FileUpload loading={update && loading} defaultImage={futsal?.image} name='image' form={form} />
+        <Flex gap={30} align='center'>
+        <FileUpload label="" loading={update && loading} defaultImage={futsal?.image} name='image' form={form} />
+        <MultiFileUpload name={'images'} defaultValue={futsal?.images} form={form} />
+        </Flex>
         <Row gutter={30}>
           <Col span={12}>
             <Form.Item label="Name of Futsal" name={'name'}>

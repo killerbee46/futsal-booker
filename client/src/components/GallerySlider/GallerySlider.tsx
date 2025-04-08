@@ -43,7 +43,7 @@ function GallerySlider({images}:any) {
                 {
                     images && images?.length !== 0 &&
                     images?.map((img:any, i:number)=> (
-                        <Image key={i} src={img?.image} preview={false} className="aspect-[7/5]" />
+                        <Image height={'100%'} width={'100%'} key={i} src={img?.image} preview={false} className="aspect-[7/5]" />
                     ))
                 }
             </Slider>

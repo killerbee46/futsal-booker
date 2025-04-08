@@ -6,7 +6,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import getImage from '../../utils/getImage';
 import { FormInstance } from 'antd/es/form/Form';
 
-const FileUpload = ({ name, form, loading, defaultImage}: { name: string, form: FormInstance<any> | undefined, loading: boolean, defaultImage:string|""}) => {
+const FileUpload = ({ name, form, loading, defaultImage, label}: { name: string, form: FormInstance<any> | undefined, loading: boolean, defaultImage:string|"",  label?:string}) => {
   const [prevImage, setPrevImage] = useState(form?.getFieldValue(name) || '')
   const { mutate } = useMutation({
     mutationFn: uploadFile,
@@ -23,11 +23,11 @@ if (defaultImage && defaultImage !== undefined) {
 }
   },[defaultImage])
   return (
-    <Form.Item name={name}>
+    <Form.Item name={name} label={label}>
       <Upload
         name="avatar"
         listType="picture-card"
-        className="avatar-uploader"
+        className="avatar-uploader overflow-hidden"
         showUploadList={false}
         // beforeUpload={beforeUpload}
         // onChange={handleChange}
@@ -35,7 +35,6 @@ if (defaultImage && defaultImage !== undefined) {
           mutate({ image: e?.file })
         }
       >
-        <button style={{ border: 0, background: 'none', overflow:'hidden' }} type="button">
           {
             loading ? 
             <>
@@ -43,14 +42,18 @@ if (defaultImage && defaultImage !== undefined) {
                 <div style={{ marginTop: 8 }}>Loading</div>
               </>:
             prevImage && prevImage !== "" || (defaultImage && defaultImage !== "") ?
-              <Image preview={false} src={getImage(prevImage)} className='w-full aspect-' /> 
+//  <div
+// className={`w-full h-full bg-[url(${getImage(prevImage) || defaultImage})] bg-black rounded-lg p-1 aspect-square bg-center object-cover object-center`}
+// />
+              <div className='w-full h-full overflow-hidden flex justify-center items-center rounded-lg'>
+                <Image preview={false} src={getImage(prevImage)} /> 
+              </div>
               :
-              <>
+              <div className='flex flex-col justify-center items-center'>
                 <PlusOutlined />
                 <div style={{ marginTop: 8 }}>Upload</div>
-              </>
+              </div>
           }
-        </button>
       </Upload>
     </Form.Item>
   );
