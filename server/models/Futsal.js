@@ -29,6 +29,17 @@ const FutsalSchema = new mongoose.Schema(
       type: mongoose.ObjectId,
       ref: "Users",
     },
+    category:{
+      type:[String],
+      enum:['5 a side', '7 a side']
+    },
+    venues:{
+      type:Number
+    },
+    rate:{
+      type:Number,
+      required:true
+    }
     // teamId: {
     //   type: Number,
     //   required: false,

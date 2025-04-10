@@ -1,4 +1,4 @@
-import { Form, Image, message, Upload } from 'antd';
+import { Flex, Form, Image, message, Upload } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useMutation } from "@tanstack/react-query"
 import { uploadFile } from '../../api/UploadApi';
@@ -37,10 +37,10 @@ if (defaultImage && defaultImage !== undefined) {
       >
           {
             loading ? 
-            <>
+            <Flex vertical justify='center' align='center'>
                 <LoadingOutlined />
                 <div style={{ marginTop: 8 }}>Loading</div>
-              </>:
+              </Flex>:
             prevImage && prevImage !== "" || (defaultImage && defaultImage !== "") ?
 //  <div
 // className={`w-full h-full bg-[url(${getImage(prevImage) || defaultImage})] bg-black rounded-lg p-1 aspect-square bg-center object-cover object-center`}

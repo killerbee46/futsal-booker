@@ -7,7 +7,7 @@ import { uploadFile } from '../../api/UploadApi'
 import StackedImages from '../StackedImages/StackedImages'
 import getImage from '../../utils/getImage'
 
-const MultiFileUpload = ({ defaultValue, name, form, label }: any) => {
+const MultiFileUpload = ({ defaultValue, name, form, label, loading }: any) => {
     const defaultValueTransform = defaultValue && defaultValue.length > 0 ? defaultValue?.map((d: any) => ({
         url: getImage(d),
         status: 'done'
@@ -67,7 +67,7 @@ const MultiFileUpload = ({ defaultValue, name, form, label }: any) => {
 
     return (
         <Form.Item name={name} label={label}>
-            <div onClick={openModal} className='w-fit'><StackedImages images={prev} /></div>
+            <div onClick={openModal} className='w-fit'><StackedImages loading={loading} images={prev} /></div>
             <Modal footer={null} title="More Photos" open={uploadModal?.visible} onCancel={closeModal} >
                 <div className='py-5'>
                     <Upload

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Button, Col, Flex, Form, Input, Row, Select, Typography, message } from 'antd'
+import { Button, Col, Flex, Form, Input, InputNumber, Row, Select, Typography, message } from 'antd'
 import { useForm } from 'antd/es/form/Form'
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { createFutsal, getFutsal, updateFutsal } from '../../api/FutsalApi'
@@ -33,7 +33,6 @@ const FutsalForm = ({ update }: any) => {
       navigate('/dashboard/futsals')
     },
     onError: (error) => {
-      // An error happened!
       message.error(error.message)
     },
   })
@@ -60,7 +59,7 @@ const FutsalForm = ({ update }: any) => {
       <Form form={form} onFinish={onFinish} layout='vertical'>
         <Flex gap={30} align='center'>
         <FileUpload label="" loading={update && loading} defaultImage={futsal?.image} name='image' form={form} />
-        <MultiFileUpload name={'images'} defaultValue={futsal?.images} form={form} />
+        <MultiFileUpload name={'images'} defaultValue={futsal?.images} form={form} loading={loading} />
         </Flex>
         <Row gutter={30}>
           <Col span={12}>
@@ -85,27 +84,32 @@ const FutsalForm = ({ update }: any) => {
           </Col>
           <Col span={12}>
 
-            {/* <Form.Item label="Email" name={'email'}>
+            <Form.Item rules={[
+              {required:true, message:'Rate is required'},
+              {pattern:/^\\d{3}|[1-2][0-9]{1,3}|[1-9][0-9]|[0-9]$/, message:"Rate must be number" }
+              ]} label="Rate" name={'rate'}>
         <Input />
-      </Form.Item> */}
+      </Form.Item>
+      </Col>
+      <Col span={12}>
+      <Form.Item label="No. of Venues" name={'venues'} rules={[
+              {pattern:/^\\d{3}|[1-2][0-9]{1,3}|[1-9][0-9]|[0-9]$/, message:"No. of venues must be number" }
+              ]} >
+        <Input className='w-full' />
+      </Form.Item>
+      </Col>
+      <Col span={12}>
+      <Form.Item label="Category" name={'category'}>
+        <Select mode='tags' options={[
+          {label:"5 A Side", value:'5 a side'},
+          {label:"7 A Side", value:'7 a side'},
+        ]} />
+      </Form.Item>
+      </Col>
+      <Col span={12}>
             <Form.Item label="Phone" name={'phone'}>
               <Input />
             </Form.Item>
-            {/* <Form.Item label="Address" name={'address'}>
-        <Input />
-      </Form.Item>
-      <Form.Item label="Password" name={'password'}>
-        <Input />
-      </Form.Item>
-      <Form.Item label="Confirm Password" name={'confirm-password'}>
-        <Input />
-      </Form.Item>
-      <Form.Item label="Role" name={'role'}>
-        <Radio.Group>
-          <Radio value={"0"}>Player</Radio>
-          <Radio value={"1"}>Futsal Owner</Radio>
-        </Radio.Group>
-      </Form.Item> */}
       </Col>
       <Col span={24}>
             <Form.Item>

@@ -1,8 +1,6 @@
-import { Button, Col, Flex, Row, Spin } from 'antd'
-import React, { useEffect, useState } from 'react'
+import { Col, Flex, Row, Spin } from 'antd'
 import BookingConfirmationModal from '../BookingConfirmationModal/BookingConfirmationModal'
-import { useParams, useSearchParams } from 'react-router-dom'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { getBookingsByFutsal } from '../../api/BookingApi'
 
 export const time = [
@@ -24,7 +22,7 @@ export const time = [
 
 const TimeTable = ({futsal, owner}:any) => {
     const {data, refetch, isFetching:loading} = useQuery({
-        queryKey:['bbf',{date:futsal?.date, id:futsal?._id}],
+        queryKey:['bbf',{date:futsal?.date, id:futsal?._id,status:"Booked"}],
         queryFn:getBookingsByFutsal
         
     })
@@ -41,10 +39,11 @@ const TimeTable = ({futsal, owner}:any) => {
       <Row>
           {
               time.map((t:any, i:number)=>{
-                  const bookedTimes = bookings?.map((d:any)=> d?.time)
+                  const bookingDetail = bookings?.find((f:any)=> f.time === t.key)
+                  const booked = bookingDetail?.time === t?.key
                   return <Col key={i} lg={6} style={{border:'1px solid gray'}}>
                   <Flex align='center' justify='center' style={{padding:'20px 20px'}}>
-                      <BookingConfirmationModal owner={owner} refetch={refetch} data={{...t, futsal:futsal, booked:bookedTimes?.includes(t?.key)}} />
+                      <BookingConfirmationModal owner={owner} refetch={refetch} data={{time:t, futsal:futsal, booking:{...bookingDetail,booked:booked}}} />
                   </Flex>
           </Col>
               })

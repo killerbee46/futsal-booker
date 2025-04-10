@@ -94,7 +94,7 @@ export const getFutsals = async (req, res) => {
 
 export const createFutsal = async (req, res) => {
     try {
-      const { name, location, google_map_location_string, phone, image, owner, images } = req.body;
+      const { name, location, google_map_location_string, phone, image, owner, images, rate, category, venues } = req.body;
       //validations
       if (!name) {
         return res.send({ error: "Name is Required" });
@@ -107,6 +107,9 @@ export const createFutsal = async (req, res) => {
       }
       if (!phone) {
         return res.send({ error: "Phone no is Required" });
+      }
+      if (!rate) {
+        return res.send({ error: "Rate is Required" });
       }
       //check user
       const registeredFutsal = await Futsal.findOne({ name });
@@ -126,7 +129,10 @@ export const createFutsal = async (req, res) => {
         google_map_location_string,
         image, 
         owner,
-        images
+        images,
+        rate, 
+        venues,
+        category
       }).save();
   
       res.status(201).send({
@@ -136,7 +142,7 @@ export const createFutsal = async (req, res) => {
       });
     } catch (error) {
       console.log(error);
-      res.status(500).send({
+      res.status(400).send({
         success: false,
         message: "Error while adding futsal",
         error,
@@ -146,7 +152,7 @@ export const createFutsal = async (req, res) => {
 
   export const updateFutsal = async (req, res) => {
     try {
-      const { name, location, google_map_location_string, phone, image, owner, images } = req.body;
+      const { name, location, google_map_location_string, phone, image, owner, images, rate, category, venues  } = req.body;
       //validations
       if (!name) {
         return res.send({ error: "Name is Required" });
@@ -159,6 +165,9 @@ export const createFutsal = async (req, res) => {
       }
       if (!phone) {
         return res.send({ error: "Phone no is Required" });
+      }
+      if (!rate) {
+        return res.send({ error: "Rate is Required" });
       }
       // check user
       const registeredFutsal = await Futsal.findOne({ name });
@@ -178,18 +187,21 @@ export const createFutsal = async (req, res) => {
         google_map_location_string,  
         image, 
         owner,
-        images
+        images,
+        rate,
+        venues,
+        category
       })
       await futsal.save();
   
-      res.status(201).send({
+      res.status(200).send({
         success: true,
         message: "Futsal updated Successfully",
         futsal,
       });
     } catch (error) {
       console.log(error);
-      res.status(500).send({
+      res.status(400).send({
         success: false,
         message: "Error while updating futsal",
         error,

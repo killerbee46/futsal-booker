@@ -12,9 +12,11 @@ export const getBookingsByFutsal = (data: any) => {
   return API({
     method: "GET",
     url: `/booking/futsal`,
-    params:{date:query?.date, id:query?.id}
+    params:query
   });
 };
+
+
 
 export const getBookingsByUser = (data: any) => {
   const query = data?.queryKey[1]
@@ -30,5 +32,15 @@ export const addBooking = (data: any) => {
       method: "POST",
       data: data,
       url: "/booking/add",
+    });
+  };
+
+  export const cancelBooking = (data: any) => {
+    const id = data?.id
+    delete data?.id
+    return API({
+      method: "PUT",
+      data: data,
+      url: `/booking/${id}`,
     });
   };

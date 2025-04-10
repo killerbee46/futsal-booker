@@ -1,12 +1,17 @@
 import React from 'react'
 import getImage from '../../utils/getImage'
-import { EditOutlined, PlusOutlined } from '@ant-design/icons'
-import { Image, Typography } from 'antd'
+import { EditOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { Flex, Image, Typography } from 'antd'
 
-const StackedImages = ({images}:any) => {
+const StackedImages = ({images, loading}:any) => {
     return (
         <>
         {
+            loading ? 
+            <div className="relative w-28 rounded-lg p-3 h-full border-gray-500 border-dotted border aspect-square cursor-pointer flex flex-col gap-2 justify-center items-center">
+            <LoadingOutlined />
+            <Typography.Paragraph className='text-sm text-center'>Loading...</Typography.Paragraph>
+            </div> :
             images && images.length > 0 ?
             <div className="relative group w-20 aspect-square cursor-pointer">
             {
