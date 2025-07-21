@@ -1,14 +1,15 @@
-import { sequelize } from "../config/tempDb.js";
 import Wishlist from "../models/Wishlist.js";
 
 export const getWishlist = async (req, res) => {
     try {
         const userId = req?.user?._id
-        const wishlist = await Wishlist.findOne({ userId: userId }, 'products')
+        const wishlist = await Wishlist.findOne({ userId: userId }, 'futsals').populate('futsals'
+            // ,"name image"  //columns control
+        )
         return res.status(200).json({
             status: 'success',
             message: "Wishlist fetched successfully",
-            data: wishlist?.products || []
+            data: wishlist?.futsals || []
         })
     } catch (error) {
         console.log(error);
@@ -23,41 +24,38 @@ export const getWishlist = async (req, res) => {
 
 export const addWishlist = async (req, res) => {
     try {
-        const { productId } = req.params;
+        const { futsalId } = req.params;
         const userId = req?.user?._id
         const wishlist = await Wishlist.findOne({ userId: userId })
         req.body.userId = userId
         let list = []
 
-        const query = `Select * from package where id_pack = ${productId} `
-        const [data] = await sequelize.query(query)
         //validations
-        if (!productId) {
-            return res.send({ error: "Please select a product to add" });
+        if (!futsalId) {
+            return res.send({ error: "Please select a futsal to add" });
         }
 
         if (wishlist) {
-            list = wishlist?.products
-            const existingIds = wishlist.products?.map((p)=> p.id_pack )
-            if (existingIds.includes(parseInt(productId))) {
+            list = wishlist?.futsals
+            if (list.includes(futsalId)) {
                 return res.status(409).json({
                     status: 'failed',
-                    message: 'Product already in the wishlist'
+                    message: 'Futsal already in the wishlist'
                 })
             }
             // list.push(productId)
             const wish = await Wishlist.findByIdAndUpdate(wishlist?._id, {
-                $push: { products: data[0] }
+                $push: { futsals: futsalId }
             })
             return res.status(201).json({
                 status: 'success',
                 message: "Added to wishlist"
             })
         } else {
-            list.push(data[0])
+            list.push(futsalId)
             const wish = new Wishlist({
                 userId: userId,
-                products: list
+                futsals: list
             }).save()
             return res.status(201).json({
                 status: 'success',
@@ -76,26 +74,25 @@ export const addWishlist = async (req, res) => {
 
 export const removeWishlist = async (req, res) => {
     try {
-        const { productId } = req.params;
+        const { futsalId } = req.params;
         const userId = req?.user?._id
         const wishlist = await Wishlist.findOne({ userId: userId })
         req.body.userId = userId
         let list = []
         //validations
-        if (!productId) {
+        if (!futsalId) {
             return res.send({ error: "Please select a product to remove" });
         }
 
         if (wishlist) {
-            list = wishlist?.products
+            list = wishlist?.futsals
 
-            const newList = list?.filter((f)=> f.id_pack != productId)
+            const newList = list?.filter((f)=> f.id_pack != futsalId)
 
-            const existingIds = wishlist.products?.map((p)=> p.id_pack )
-            if (!existingIds.includes(parseInt(productId))) {
+            if (!list.includes(futsalId)) {
                 return res.status(409).json({
                     status: 'failed',
-                    message: 'Product is not in the wishlist'
+                    message: 'Futsal is not in the wishlist'
                 })
             }
             // list.push(productId)
@@ -109,7 +106,7 @@ export const removeWishlist = async (req, res) => {
         } else {
             return res.status(400).json({
                 status: 'failed',
-                message: "No product in the wishlist",
+                message: "No futsal in the wishlist",
             })
         }
     } catch (error) {

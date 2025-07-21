@@ -143,6 +143,51 @@ export const createUser = async (req, res) => {
     }
   };
 
+  export const getProfile = async (req, res) => {
+  try {
+    const user = await userModel.findById(req?.user?._id).select('-password -otp');
+    return res.status(200).json({
+      status:"success",
+      message: "Profile fetched successfully",
+      user: user
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error while getting profile",
+    });
+  }
+};
+export const updateProfile = async (req, res) => {
+  try {
+    const { name, address, password } = req?.body
+    const user = await userModel.findById(req.user._id);
+    const hashedPassword = password ? await hashPassword(password) : undefined;
+    const updated = await userModel.findByIdAndUpdate(req?.user?._id,
+      {
+        name: name || user.name,
+        password: hashedPassword || user.password,
+        address: address || user.address,
+      },
+      { new: true }
+    )
+    return res.status(200).json({
+      status: 'success',
+      message: "User updated successfully",
+      updated
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error while updating profile",
+    });
+  }
+};
+
   export const deleteUser = async (req, res) => {
     try {
       await userModel.findByIdAndDelete(req.params.id);

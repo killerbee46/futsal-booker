@@ -5,7 +5,7 @@ import { requireSignIn } from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
 router.get("/",requireSignIn, getWishlist);
-router.post("/:productId",requireSignIn, addWishlist);
-router.delete("/:productId",requireSignIn, removeWishlist);
+router.post("/:futsalId",requireSignIn, addWishlist);
+router.delete("/:futsalId",requireSignIn, removeWishlist);
 
 export default router

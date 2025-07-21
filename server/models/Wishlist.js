@@ -5,8 +5,9 @@ const WishlistSchema = new mongoose.Schema(
     userId: {
       type: String,
     },
-    products: { 
-        type: [Object]
+    futsals: { 
+        type: [mongoose.ObjectId],
+        ref:"Futsals"
     }
   },
   { timestamps: true }

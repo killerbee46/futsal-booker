@@ -37,10 +37,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api", apiRoutes);
-app.use("/auth", authRoutes);
-app.use("/api/futsal", futsalRoutes);
-app.use("/api/user", userRoutes);
-app.use("/api/booking", bookingRoutes);
 app.use("/upload", uploadRoutes)
 
 //PORT

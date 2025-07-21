@@ -153,7 +153,7 @@ MediaApis.interceptors.request.use(
         };
         return config;
     },
-    (error) => {
+    (error:any) => {
         Promise.reject(error);
     }
 );
