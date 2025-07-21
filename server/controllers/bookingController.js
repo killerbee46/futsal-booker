@@ -1,4 +1,5 @@
 import Booking from "../models/Booking.js";
+import { filterHandler } from "../utils/filterHandler.js";
 
 export const getBookings = async (req, res) => {
     try {
@@ -18,7 +19,7 @@ export const getBookings = async (req, res) => {
 
   export const getBookingByFutsal = async (req, res) => {
     try {
-      const booking = await Booking.find({futsal:{$eq:req?.query?.id}, status:{$eq:req?.query?.status}, date:{$eq: req?.query?.date}}).lean();
+      const booking = await Booking.find(filterHandler(req?.query)).lean();
       res.status(200).send({
         success: true,
         message: "Bookings Loaded",
@@ -37,7 +38,6 @@ export const getBookings = async (req, res) => {
   export const getBookingByUser = async (req, res) => {
     try {
       const booking = await Booking.find({
-        booker:{$eq:req?.query?.booker},
         status:{$regex:req?.query?.status
           
         }})?.populate("futsal").lean();

@@ -4,7 +4,7 @@ import { buildWebStorage, setupCache } from "axios-cache-interceptor";
 
 import { requestLogout } from "./AuthApi";
 
-export const baseUrl = "http://localhost:8080";
+export const baseUrl = "http://localhost:8081";
 // Same object, new types.
 export const axios: any = setupCache(axioss, {
     debug: console.log,
@@ -121,13 +121,13 @@ axios.interceptors.request.use(
         };
     },
 
-    (error) => {
+    (error:any) => {
         Promise.reject(error);
     }
 );
 
 axios.interceptors.response.use(
-    (response) => {
+    (response:any) => {
         // removeCacheOnResponse(response);
         return response;
     },

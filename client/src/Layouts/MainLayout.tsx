@@ -3,6 +3,7 @@ import Layout, { Content, Footer } from "antd/es/layout/layout";
 import Nav4 from "../user-side/navbar/Nav4/Nav4";
 import { colors } from "../themes/colors";
 import MyFooter from "../components/Footer/Footer";
+import { useSearchParams } from "react-router-dom";
 
 export const menus=  [
   { label: "Home", path: '/' },
@@ -11,6 +12,7 @@ export const menus=  [
 ]
 
 const MainLayout = (props: any) => {
+  const [searchParams, setSearchParams] = useSearchParams()
   const { title, bannerData, tabFilter } = props
   document.title = (title ? (title + " | ") : "") + "Futsal Online"
   return (

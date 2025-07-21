@@ -22,7 +22,7 @@ export const time = [
 
 const TimeTable = ({futsal, owner}:any) => {
     const {data, refetch, isFetching:loading} = useQuery({
-        queryKey:['bbf',{date:futsal?.date, id:futsal?._id,status:"Booked"}],
+        queryKey:['bbf',{date_eq:futsal?.date, id:futsal?._id,status:"Booked"}],
         queryFn:getBookingsByFutsal
         
     })

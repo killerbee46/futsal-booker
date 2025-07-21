@@ -35,7 +35,7 @@ const BookingPage = () => {
     setSearchParams({ date: e })
   }
   return (
-    <MainLayout >
+    <MainLayout>
       <Container>
         <Card>
           <Flex align='center' justify='space-between'>

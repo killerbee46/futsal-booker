@@ -1,8 +1,9 @@
 import Futsal from "../models/Futsal.js";
+import { filterHandler } from "../utils/filterHandler.js";
 
 export const getFutsals = async (req, res) => {
     try {
-      const futsals = await Futsal.find({})?.populate('owner');
+      const futsals = await Futsal.find(filterHandler(req?.query))?.populate('owner');
       res.status(200).send({
         success:true,
         message:"Futsals fetched successfully",

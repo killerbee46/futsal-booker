@@ -8,13 +8,12 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 const MyBookings = () => {
-  const user = localUser()
   const [searchParams, setSearchParams] = useSearchParams()
 
   const status = searchParams.get('status')
 
   const {data, isFetching} = useQuery({
-          queryKey:['bbu',{user:user?._id, status:status}],
+          queryKey:['bbu',{status:status}],
           queryFn:getBookingsByUser  
       })
 

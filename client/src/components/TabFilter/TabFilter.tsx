@@ -1,16 +1,25 @@
 import { Card, Col, Flex, Input, Row, Select } from 'antd'
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { debounce } from '../../utils/getDebounce'
 
 const TabFilter = () => {
-    const [filters, setFilters] = useState({})
+    const [filters, setFilters] = useState<any>({})
     const [searchParams, setSearchParams] = useSearchParams()
     const onFilterChange = (name: any, value:any) => {
         setFilters({...filters, [name]:value})
     }
 
     useEffect(()=> {
-        setSearchParams(filters)
+        Object.keys(filters)?.forEach((key)=>{
+            if (filters[key] && filters[key] !== undefined) {
+                searchParams.set(key,filters[key])
+            }
+            else{
+                searchParams.delete(key)
+            }
+        })
+        setSearchParams(searchParams)
     }, [filters])
     return (
         <div>
@@ -19,9 +28,9 @@ const TabFilter = () => {
                     <Col span={8}>
                         <Flex vertical gap={5}>
                             Futsal Type
-                            <Select onChange={(e)=> onFilterChange('type',e)} placeholder="Select Type" size='large' style={{ minWidth: 100 }} options={[
-                                {label:'5 a Side', value:'0'},
-                                {label:'7 a Side', value:'1'},
+                            <Select allowClear onChange={(e)=> onFilterChange('category',e)} placeholder="Select Type" size='large' style={{ minWidth: 100 }} options={[
+                                {label:'5 a Side', value:'5 a side'},
+                                {label:'7 a Side', value:'7 a side'},
                             ]} />
                         </Flex>
                     </Col>

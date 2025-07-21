@@ -4,6 +4,7 @@ export const getFutsals = (data: any) => {
   return API({
     method: "GET",
     url: "/futsal",
+    params:data?.queryKey[1]
   });
 };
 
