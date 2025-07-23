@@ -7,6 +7,10 @@ const FutsalSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    description: {
+      type: String,
+      // required: true,
+    },
     location: {
       type: String,
       required: true,
@@ -39,6 +43,16 @@ const FutsalSchema = new mongoose.Schema(
     rate:{
       type:Number,
       required:true
+    },
+    createdBy:{
+      type:mongoose.ObjectId,
+      ref:"Users",
+      // required:true
+    },
+    updatedBy:{
+      type:mongoose.ObjectId,
+      ref:"Users",
+      // required:true
     }
     // teamId: {
     //   type: Number,

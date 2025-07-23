@@ -15,6 +15,7 @@ export const requireSignIn = async (req, res, next) => {
                 (err, decoded) => {
                   if (err) {
                     return res.status(401).send({
+                      status:"failed",
                       message: "Unauthorized ! Please Login",
                     });
                   }
@@ -26,6 +27,51 @@ export const requireSignIn = async (req, res, next) => {
   }
 };
 
+// futsal owner access 
+export const isOwner = async (req, res, next) => {
+  try {
+    const user = await userModel.findById(req.user._id);
+    if (user.role !== 2) {
+      return res.status(401).send({
+        status: "failed",
+        message: "Unauthorized! Register as Owner to access!",
+      });
+    } else {
+      req.user.role=user.role
+      next();
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(401).send({
+      status: "failed",
+      error,
+      message: "Error in owner middelware",
+    });
+  }
+};
+
+export const isOwnerOrMore = async (req, res, next) => {
+  try {
+    const user = await userModel.findById(req.user._id);
+    if (user.role < 2) {
+      return res.status(401).send({
+        status: "failed",
+        message: "Cannot access as a user!",
+      });
+    } else {
+      req.user.role=user.role
+      next();
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(401).send({
+      status: 'failed',
+      error,
+      message: "Error in owner middelware",
+    });
+  }
+};
+
 //admin acceess
 export const isAdmin = async (req, res, next) => {
   try {
@@ -33,9 +79,10 @@ export const isAdmin = async (req, res, next) => {
     if (user.role !== 3) {
       return res.status(401).send({
         success: false,
-        message: "UnAuthorized Access",
+        message: "UnAuthorized Access!",
       });
     } else {
+      req.user.role=user.role
       next();
     }
   } catch (error) {
