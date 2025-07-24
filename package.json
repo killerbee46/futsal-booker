@@ -7,9 +7,11 @@
     "setup": "cd client && yarn && cd ../server && yarn",
     "setup:frontend": "cd client && yarn",
     "setup:backend": "cd server && yarn",
+    "setup:app": "cd app && yarn",
     "start": "cd client && yarn start && cd ../server && yarn dev",
     "start:frontend": "cd client && yarn dev",
-    "start:backend": "cd server && yarn dev"
+    "start:backend": "cd server && yarn dev",
+    "start:app": "cd app && yarn start"
   },
   "repository": {
     "type": "git",
@@ -25,5 +27,8 @@
     "dayjs": "^1.11.11",
     "express-fileupload": "^1.5.0",
     "fs": "^0.0.1-security"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
   }
 }
